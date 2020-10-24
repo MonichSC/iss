@@ -35,4 +35,4 @@ def demo(start_h):
     obj = Container(start_h)
     for i in range(12 * 3600 * 100):
         obj.tick()
-    obj.print()
+    return obj.get_heights()
