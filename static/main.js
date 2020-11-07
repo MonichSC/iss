@@ -10,12 +10,15 @@ function wait()
     {
         let w = document.createElement("div");
         w.id = "wait";
-        w.className = "wt";     // see silgy.css
+        w.classList.add("wt");     // see silgy.css
         w.style.display = "block";
+        w.style.backgroundImage = "url('img/wait.gif')";
         document.body.appendChild(w);
+
     }
     else
-        document.getElementById("wait").style.display = "block";
+        {document.getElementById("wait").style.display = "block";}
+        document.getElementById("chart_par").style.display = "none";
 }
 
 
@@ -33,10 +36,18 @@ function wait_off()
 // --------------------------------------------------------------------------
 function p(t)
 {
-    let p = document.createElement("p");
-    if ( t ) p.innerHTML = t;
-    document.body.appendChild(p);
-    return p;
+if ( !document.getElementById("status") )
+    {
+            let p = document.createElement("p");
+        p.id = ("status")
+        if ( t ) p.innerHTML = "message: " + t;
+        document.body.appendChild(p);
+    }
+    else
+    {
+        document.getElementById("status").innerHTML = "message: " + t
+    }
+
 }
 
 
@@ -46,7 +57,6 @@ function p(t)
 function iss_go()
 {
     let l = document.getElementById("start_level").value;
-
     x.onreadystatechange = function(e)
     {
         if ( x.readyState == 4 )
@@ -64,6 +74,10 @@ function iss_go()
                 else    // ok
                 {
                     p("iss_go OK");
+                    var d = new Date();
+                    document.getElementById("plot").src = "/plot.png?ver=" + d.getTime();
+                    document.getElementById("chart_par").style.display = "block";
+
                 }
             }
             else    // empty
@@ -74,8 +88,12 @@ function iss_go()
     };
 
     wait();
+    x.open("POST", "/iss_go", true);
+    x.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    x.send(JSON.stringify({ "start_level": l, "value2": "0"}));
 
-    let pars = "start_level=" + l;
-    x.open("POST", "iss_go", true);
-    x.send(pars);
+    console.log("wyslano");
 }
+
+
+

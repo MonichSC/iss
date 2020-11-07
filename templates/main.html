@@ -2,16 +2,24 @@
 <head>
 <meta charset="UTF-8">
 <title>ISS Lab</title>
-<link rel="stylesheet" type="text/css" href="/main.css">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/main.css')}}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="/main.js"></script>
+
 </head>
 <body>
 <h1>ISS Lab</h1>
 <h2>Ćwiczenie 1</h2>
 <div>
+
 <p>Poziom początkowy: <input id="start_level" name="start_level" autofocus> m</p>
-<p><button onClick="iss_go();">Go</button></p>
-<p id="chart_par" style="display:none;"><img name="chart" src="/chart.png"></p>
+
+<p><button onClick="iss_go()">Go</button></p>
+
+<p id="chart_par" style="display:none;">  <img id= "plot" name="chart" src="{{url_for('static', filename='plot.png')}}" align="middle"/></p>
+
+
+
 </div>
 </body>
 </html>
