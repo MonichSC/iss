@@ -19,6 +19,13 @@ Formularz:
 * wartość max (przepełnienia)
 * wydajność dopływu/odpływu
 
+Podział:
+
+* Arek
+* Jurek
+* Kacper
+* Michał
+
 ## Wersja II
 
 do 23.11.2020
