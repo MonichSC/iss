@@ -13,3 +13,8 @@ do 16.11.2020
 * dopływ i odpływ możemy zamykać/otwierać
 * czujnik poziomu zabezpiecza przed przepełnieniem zamykając zawór dopływowy
 
+Formularz:
+
+* wielkość zbiornika
+* wartość max (przepełnienia)
+* wydajność dopływu/odpływu
