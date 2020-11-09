@@ -18,3 +18,11 @@ Formularz:
 * wielkość zbiornika
 * wartość max (przepełnienia)
 * wydajność dopływu/odpływu
+
+## Wersja II
+
+do 23.11.2020
+
+## Wersja III
+
+do 30.11.2020
