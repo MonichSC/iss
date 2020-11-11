@@ -4,6 +4,7 @@ import container
 import json
 import os
 import matplotlib
+
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
@@ -27,7 +28,7 @@ def iss_go():
             t = np.arange(0, len(data), 1)
             fig = plt.figure()
             ax = fig.add_subplot(1, 1, 1)
-            ax.plot(data, t ,color='tab:blue')
+            ax.plot(t, data, color='tab:blue')
 
             try:
                 os.remove("static/plot.png")
