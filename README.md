@@ -38,4 +38,4 @@ do 30.11.2020
 
 do 14.12.2020
 
-Jurek zapisuje tablice do bazy
+Jurek zapisuje tablice do bazy w postaci metody, która przyjmuje tablice w argumentach
