@@ -33,3 +33,9 @@ do 23.11.2020
 ## Wersja III
 
 do 30.11.2020
+
+## Wersja IV
+
+do 14.12.2020
+
+Jurek zapisuje tablice do bazy
