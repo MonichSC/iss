@@ -5,6 +5,8 @@ import json
 import os
 import matplotlib
 
+import simulation
+
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
@@ -23,8 +25,9 @@ def iss_go():
 
         content_dict = json.loads(request.data)
 
-        if(content_dict['start_level']!= ""):
-            data = multi_container.demo(int(content_dict['start_level']))
+        if content_dict['start_level']!= "":
+            raw_data = simulation.launch_simulation(int(content_dict['start_level']))
+            data = raw_data['height']
             t = np.arange(0, len(data), 1)
             fig = plt.figure()
             ax = fig.add_subplot(1, 1, 1)
