@@ -11,3 +11,36 @@
     background: url(wait.gif) 50% 50% no-repeat;
     background-size: 52px;
 }
+
+header{
+  text-align: center;
+}
+
+.parameters-box
+{
+  display: flex;
+  flex-direction: column;
+  border: solid black 2px;
+}
+.parameters-row
+{
+  display:flex;
+  justify-content: space-around;
+  margin: 5px;
+}
+
+.parameters-box .parameters-row > span
+{
+  width: 200px;
+}
+.parameters-box .parameters-row > span :first-child
+{
+  width: 35%;
+  border: hotpink 2px solid;
+}
+
+.chart-box
+{
+  display:flex;
+  justify-content: center;
+}

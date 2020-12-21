@@ -1,6 +1,4 @@
 import math
-
-
 class Container:
     # consts
     alpha = 1.5
@@ -27,8 +25,8 @@ class Container:
     def get_heights(self):
         return self.h
 
-    def print(self):
-        print(self.h)
+    #def print(self):
+    #   print(self.h)
 
 
 def demo(start_h):
