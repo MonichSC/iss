@@ -32,16 +32,26 @@ def iss_go():
 
 
             data = raw_data['height']
-            t = np.arange(0, len(data), 1)
+            len_of_data = len(data)
+            t = np.arange(0, len_of_data, 1)
             fig = plt.figure()
             ax = fig.add_subplot(1, 1, 1)
             ax.plot(t, data, color='tab:blue')
+            # to many plots on one figure
+            #data.sort(reverse=True)
+            #ax.plot(t, data, color='tab:red')
 
+            plt.xlabel('time')
+            plt.ylabel('values')
+            plt.xticks(np.arange(0, len_of_data+1, len_of_data/20))
+            plt.grid(True)
+            
             try:
                 os.remove("static/plot.png")
             except:
                 print("an exception occurred: file not exist")
 
+            fig.set_size_inches(14, 4)
             fig.savefig('static/plot.png')
             response = {"code": 0,"message": "img prepared"}
         else:
