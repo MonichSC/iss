@@ -26,10 +26,15 @@ def iss_go():
         content_dict = json.loads(request.data)
 
         if content_dict['start_level'] != "":
-            raw_data = simulation.launch_simulation(int(content_dict['start_level']), int(content_dict['min_height']),int(content_dict['max_height']),int(content_dict['area']),
-                                                    int(content_dict['start_temp']),int(content_dict['target_temp']),int(content_dict['max_temp_error']),int(content_dict['heater_max_power']),float(content_dict['max_fluid_input']),
-                                                    int(content_dict['input_fluid_temp']),float(content_dict['beta']),int(content_dict['ticks_per_second']),int(content_dict['sim_time']), content_dict['controller'])
-
+            raw_data = simulation.launch_simulation(int(content_dict['start_level']), int(content_dict['min_height']),
+                                                    int(content_dict['max_height']), int(content_dict['area']),
+                                                    int(content_dict['start_temp']), int(content_dict['target_temp']),
+                                                    int(content_dict['max_temp_error']),
+                                                    int(content_dict['heater_max_power']),
+                                                    float(content_dict['max_fluid_input']),
+                                                    int(content_dict['input_fluid_temp']), float(content_dict['beta']),
+                                                    int(content_dict['ticks_per_second']),
+                                                    int(content_dict['sim_time']), content_dict['controller'])
 
             data = raw_data['height']
             len_of_data = len(data)
@@ -38,14 +43,14 @@ def iss_go():
             ax = fig.add_subplot(1, 1, 1)
             ax.plot(t, data, color='tab:blue')
             # to many plots on one figure
-            #data.sort(reverse=True)
-            #ax.plot(t, data, color='tab:red')
+            # data.sort(reverse=True)
+            # ax.plot(t, data, color='tab:red')
 
             plt.xlabel('time')
             plt.ylabel('values')
-            plt.xticks(np.arange(0, len_of_data+1, len_of_data/20))
+            plt.xticks(np.arange(0, len_of_data + 1, len_of_data / 20))
             plt.grid(True)
-            
+
             try:
                 os.remove("static/plot.png")
             except:
@@ -53,11 +58,12 @@ def iss_go():
 
             fig.set_size_inches(14, 4)
             fig.savefig('static/plot.png')
-            response = {"code": 0,"message": "img prepared"}
+            response = {"code": 0, "message": "img prepared"}
         else:
             response = {"code": 1, "message": "bad_value"}
 
     return jsonify(response)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

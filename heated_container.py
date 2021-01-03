@@ -44,6 +44,7 @@ class Heated_container:
         input_fluid_v = input_per_second / self.ticks_per_second
         new_fluid_v = fluid_before_input_v + input_fluid_v
         new_temp = (fluid_before_input_v*self.temperature[-1] + input_fluid_v*self.input_fluid_temp) / new_fluid_v
+        new_temp += self.heater_power[-1] / (self.ticks_per_second * new_fluid_v * 4200)
         self.temperature.append(new_temp)
         self.error.append(self.target_temp - new_temp)
 
@@ -54,6 +55,7 @@ class Heated_container:
         output['error'] = self.error
         output['input'] = self.input_history
         output['output'] = self.output_history
+        output['heater_power'] = self.heater_power
         output['input_valve'] = self.input_valve_status
         output['output_valve'] = self.output_valve_status
         return output
