@@ -40,13 +40,20 @@ class Heated_container:
             new_height = self.max_height
         self.height.append(new_height)
         # Temperature control
-        fluid_before_input_v = self.height[-1] - output_per_second / self.ticks_per_second
+        fluid_before_input_v = self.height[-2] * self.area
         input_fluid_v = input_per_second / self.ticks_per_second
         new_fluid_v = fluid_before_input_v + input_fluid_v
-        new_temp = (fluid_before_input_v*self.temperature[-1] + input_fluid_v*self.input_fluid_temp) / new_fluid_v
-        new_temp += self.heater_power[-1] / (self.ticks_per_second * new_fluid_v * 4200)
-        self.temperature.append(new_temp)
-        self.error.append(self.target_temp - new_temp)
+
+        if new_fluid_v != 0:
+            new_temp = (fluid_before_input_v*self.temperature[-1] + input_fluid_v*self.input_fluid_temp) / new_fluid_v
+            heaterQ = self.heater_power[-1] * self.heater_max_power
+            # dT = Q / (ro * V * Cp * t)
+            new_temp += heaterQ / (997 * new_fluid_v * 4190 * self.ticks_per_second)
+            self.temperature.append(new_temp)
+        else:
+            self.temperature.append(0)
+
+        self.error.append(self.target_temp - self.temperature[-1])
 
     def get_data(self):
         output = dict()

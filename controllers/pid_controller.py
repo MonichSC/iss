@@ -19,12 +19,13 @@ class PidController:
 
     def tick(self, sim_object):
         error = sim_object.error[-1]
+        height_error = sim_object.height[-1] - (sim_object.max_height - sim_object.min_height) / 2
 
-        sim_object.input_valve_status.append(return_correct_value(0, self.input_pid(error), 1))
+        sim_object.input_valve_status.append(return_correct_value(0, self.input_pid(height_error) / 10, 1))
         #sim_object.output_valve_status.append(return_correct_value(0, self.output_pid(error), 1))
-        sim_object.output_valve_status.append(1)
-        #sim_object.heater_power.append(return_correct_value(0, self.temperature_pid(error), 1))
-        sim_object.heater_power.append(1)
+        sim_object.output_valve_status.append(0)
+        sim_object.heater_power.append(return_correct_value(0, self.temperature_pid(error) / 10, 1))
+        #sim_object.heater_power.append(1)
 
         # self.sum += error
         # derivative = (error - self.last_error) / sim_object.ticks_per_second
