@@ -42,7 +42,7 @@ def launch_simulation(start_height=0.2, min_height=0.1, max_height=0.5, area=0.1
                     "p": 5, "i": 1, "d": 0.01
                 },
                 "output": {
-                    "p": 1, "i": 0.1, "d": 0.2
+                    "p": 0.3, "i": 0.5, "d": 0.0001
                 },
                 "temperature": {
                     "p": -5, "i": -0.4, "d": -0.01
