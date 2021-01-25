@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import controllers.pid_controller as pctr
 import controllers.null_controller as nctr
+import controllers.fuzzy_controller as fctr
 import heated_container as hc
 
 
@@ -22,7 +23,7 @@ class Simulation:
 
 
 def launch_simulation(start_height=0.2, min_height=0.1, max_height=0.5, area=0.1,
-                      start_temp=22, target_temp=66, max_temp_error=3, heater_max_power=2000,
+                      start_temp=22, target_temp=66, max_temp_error=3, heater_max_power=20000,
                       max_fluid_input=0.2, input_fluid_temp=15, beta=0.035,
                       ticks_per_second=1000, sim_time=120, controller="none",
                       pid_parameters=None):
@@ -49,6 +50,8 @@ def launch_simulation(start_height=0.2, min_height=0.1, max_height=0.5, area=0.1
                 }
             }
         ctr = pctr.PidController(pid_parameters, ticks_per_second)
+    elif controller == "fuzzy":
+        ctr = fctr.FuzzyController()
     else:
         raise Exception("No such controller found")
 
@@ -75,7 +78,7 @@ def make_plot(raw_data, name, id):
 
 if __name__ == '__main__':
     print("START")
-    raw_data = launch_simulation(controller='pid')
+    raw_data = launch_simulation(controller='fuzzy')
     print("100.0%, generating diagrams")
 
     make_plot(raw_data, "height", 1)
