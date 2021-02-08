@@ -1,6 +1,6 @@
 class FuzzyController:
-    def __init__(self):
-        pass
+    def __init__(self, max_temp_error):
+        self.max_temp_error = max_temp_error
 
     def tick(self, sim_object):
         if len(sim_object.error) <= 2:
@@ -18,8 +18,8 @@ class FuzzyController:
             sim_object.height[-1] / sim_object.max_height,
             # Reason 3 - water is below minimum
             (sim_object.min_height - sim_object.height[-1]) / sim_object.min_height,
-            # Reason 4 - temperature is within 5C of target
-            5 - abs(sim_object.temperature[-1] - sim_object.target_temp)
+            # Reason 4 - temperature is within max_temp_error C of target
+            self.max_temp_error - abs(sim_object.temperature[-1] - sim_object.target_temp)
         ]
 
         reasons = []

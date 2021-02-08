@@ -51,7 +51,7 @@ def launch_simulation(start_height=0.2, min_height=0.1, max_height=0.5, area=0.1
             }
         ctr = pctr.PidController(pid_parameters, ticks_per_second)
     elif controller == "fuzzy":
-        ctr = fctr.FuzzyController()
+        ctr = fctr.FuzzyController(max_temp_error)
     else:
         raise Exception("No such controller found")
 
