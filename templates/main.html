@@ -16,10 +16,10 @@
     </header>
     <div class="parameters-box">
         <div class="parameters-row">
-            <span><p>Start height: </p>  <input  id="par-1" name="start_level" value="2"></span>
-            <span>Min height: </p> <input  id="par-2" name="min_height" value="1"></span>
-            <span> <p>Max height: </p> <input  id="par-3" name="max_height" value="10"></span>
-            <span> <p>Area: </p> <input  id="par-4" name="area" value="2"></span>
+            <span><p>Start height: </p>  <input  id="par-1" name="start_level" value="0.2"></span>
+            <span>   Min height: </p> <input  id="par-2" name="min_height" value="0.1"></span>
+            <span> <p>Max height: </p> <input  id="par-3" name="max_height" value="0.5"></span>
+            <span> <p>Area: </p> <input  id="par-4" name="area" value="0.1"></span>
             <span> <p></span>
         </div>
 
@@ -28,19 +28,19 @@
             <span> <p>Target temp: </p> <input  id="par-6" name="target_temp" value="66"></span>
             <span> <p>Max temp error: </p> <input  id="par-7" name="max_temp_error" value="3"></span>
             <span> <p>Heater max power: </p> <input  id="par-8" name="heater_max_power" value="2000"></span>
-            <span> <p>Max fluid input: </p> <input  id="par-9" name="max_fluid_input" value="0.1"></span>
+            <span> <p>Max fluid input: </p> <input  id="par-9" name="max_fluid_input" value="0.2"></span>
         </div>
         <div class="parameters-row">
             <span> <p>input_fluid_temp: </p> <input  id="par-10" name="input_fluid_temp" value="15"></span>
             <span> <p>beta: </p> <input  id="par-11" name="beta" value="0.035"></span>
             <span> <p>ticks_per_second: </p> <input  id="par-12" name="ticks_per_second" value="1000"></span>
-            <span> <p>sim_time: </p> <input  id="par-13" name="sim_time" value="600"></span>
+            <span> <p>sim_time: </p> <input  id="par-13" name="sim_time" value="2"></span>
             <span> <p>
                 Controler
                 </p>
                 <select id="par-14" name="controller" value="none">
                     <option value="none">none</option>
-                    <option value="PID">PID</option>
+                    <option value="pid">pid</option>
                     <option value="fuzzy">fuzzy</option>
                   </select>
             </span>

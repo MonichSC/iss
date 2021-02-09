@@ -26,8 +26,8 @@ def iss_go():
         content_dict = json.loads(request.data)
 
         if content_dict['start_level'] != "":
-            raw_data = simulation.launch_simulation(int(content_dict['start_level']), int(content_dict['min_height']),
-                                                    int(content_dict['max_height']), int(content_dict['area']),
+            raw_data = simulation.launch_simulation(float(content_dict['start_level']), float(content_dict['min_height']),
+                                                    float(content_dict['max_height']), float(content_dict['area']),
                                                     int(content_dict['start_temp']), int(content_dict['target_temp']),
                                                     int(content_dict['max_temp_error']),
                                                     int(content_dict['heater_max_power']),
