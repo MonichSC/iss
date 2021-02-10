@@ -13,7 +13,7 @@ class Simulation:
 
     def run(self, simulation_time, ticks_per_second):
         print(f"Running simulation for {simulation_time} minutes")
-        totalTicks = simulation_time * ticks_per_second * 60
+        totalTicks = simulation_time * ticks_per_second #* 60
         breakpointFactor = totalTicks / 20
         for i in range(totalTicks):
             if i % breakpointFactor == 0:
