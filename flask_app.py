@@ -1,6 +1,5 @@
 from flask import Flask, escape, request, render_template, jsonify
 import numpy as np
-import multi_container
 import json
 import os
 import matplotlib
