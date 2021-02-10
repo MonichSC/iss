@@ -15,11 +15,11 @@
     <div class="parameters-box">
         <div class="title"> Parametry Symulacji</div>
         <div class="parameters-row">
-            <span><p>Start height: </p>  <input  id="par-1" name="start_level" value="0.2"></span>
-            <span>   Min height: </p> <input  id="par-2" name="min_height" value="0.1"></span>
-            <span> <p>Max height: </p> <input  id="par-3" name="max_height" value="0.5"></span>
-            <span> <p>Area: </p> <input  id="par-4" name="area" value="0.1"></span>
-            <span> <p></span>
+            <span><p>Start height:</p> <input  id="par-1" name="start_level" value="0.2"></span>
+            <span><p>Min height:</p> <input  id="par-2" name="min_height" value="0.1"></span>
+            <span><p>Max height:</p> <input  id="par-3" name="max_height" value="0.5"></span>
+            <span><p>Area:</p> <input id="par-4" name="area" value="0.1"></span>
+            <span><p></p></span>
         </div>
 
         <div class="parameters-row">
@@ -38,14 +38,14 @@
                 Controler
                 </p>
                 <select id="par-14" name="controller" value="none">
-                    <!--option value="none">none</option-->
-                    <option value="pid">pid</option>
-                    <option value="fuzzy">fuzzy</option>
+                    <option value="none">none</option>
+                    <option value="pid">PID</option>
+                    <option value="fuzzy">Fuzzy</option>
                   </select>
             </span>
         </div>
 
-        <span><button id="sim_start" >Start Symulacji</button> </span>
+        <span><button class=btn id="sim_start">Start Symulacji</button> </span>
     </div>
 
     <div class="parameters-box">
@@ -84,8 +84,8 @@
                 </span>
             </li>
         </ul>
-        <span><button id="plot_start" >Generuj wykres</button> </span>
-        <span><button id="add_plot" >Dodaj wykres</button> </span>
+        <span><button class=btn id="plot_start">Generuj wykres</button> </span>
+        <span><button class=btn id="add_plot">Dodaj wykres</button> </span>
     </div>
 
     <div class="chart-box">
