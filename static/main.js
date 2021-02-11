@@ -134,18 +134,15 @@ function iss_go()
 }
 
 
-const hide_plot_parameters = ()=> 
+function hide_plot_parameters()
 {
-    const par_box = document.getElementById("plot-parameters")
-                    par_box.style.display = "none";
-                    par_box.parentElement.querySelectorAll("button").forEach(el => {
-                        el.style.display = "none"; 
-                    });
-//                        par_box.parentElement.querySelector(".title").style.fontSize= "23px";
-//                        par_box.parentElement.style.flexDirection = "row";
+    const par_box = document.getElementById("plot");
+    par_box.style.display = "none";
 }
 
-const show_plot_parameters = ()=> {
+
+function show_plot_parameters()
+{
     const par_box = document.getElementById("plot-parameters-1")
     par_box.style.display = "block";
     par_box.parentElement.querySelectorAll("button").forEach(el => {
@@ -169,9 +166,14 @@ const show_plot_parameters = ()=> {
 
 
 
-const get_plot = () =>{
-    if(simulation_prepared)
+function get_plot()
+{
+    if (!simulation_prepared)
     {
+        alert("Aby wygenerować wykres należy przeprowadzić symulację");
+        return;
+    }
+    
     x.onreadystatechange = function (e) {
         if (x.readyState == 4) {
             wait_off();
@@ -201,28 +203,31 @@ const get_plot = () =>{
         }
     };
 
-
     wait();
-    const plots = document.getElementById("plot-parameters").querySelectorAll("li")
-    console.log(plots)
-    array=[]
-    plots.forEach(el => {
+
+/*    const plots = document.getElementById("plot-parameters").querySelectorAll("div");
+
+    console.log(plots);*/
+
+    array=[];
+
+/*    plots.forEach(el => {
         const plot_color = el.querySelector("#plot_colors").value
         const plot_values = el.querySelector("#plot_values").value
         array.push({"values_to_plot": plot_values, "color_for_plot": plot_color})
-    });
+    });*/
 
     x.open("POST", "/get_plot", true);
     x.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    data= JSON.stringify(array)
+//    data = JSON.stringify(array);
+    data = "[{\"color_for_plot\":\"dodgerblue\",\"values_to_plot\":\"height\"}]";
 
-    console.log(data)
+    console.log(data);
 
     x.send(data);
     console.log("plot_start");
 }
-else{alert("Aby wygenerować wykres należy przeprowadzić symulację")}
-}
+
 
 const add_plot = () => {
     const parameters_list = document.getElementById("plot-parameters")
@@ -234,6 +239,7 @@ const add_plot = () => {
     
 }
 
+
 const remove_plot = () => {
     const parameters_list = document.querySelector(".plot-parameters")
     parameters_list.removeChild(parameters_list.childNodes[parameters_list.childNodes.length-1]);
@@ -243,6 +249,7 @@ const remove_plot = () => {
         document.querySelector("#remove_plot").style.display = "none";
     }
 }
+
 
 window.addEventListener("DOMContentLoaded", (e)=>{
 
