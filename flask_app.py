@@ -24,8 +24,9 @@ def hello():
 def iss_go():
     global raw_data
     if request.method == 'POST':
-
+        print("----------------------------")
         content_dict = json.loads(request.data)
+        print(content_dict["pid_parameters"])
 
         if content_dict['start_level'] != "":
             raw_data = simulation.launch_simulation(float(content_dict['start_level']), float(content_dict['min_height']),
@@ -36,7 +37,10 @@ def iss_go():
                                                     float(content_dict['max_fluid_input']),
                                                     int(content_dict['input_fluid_temp']), float(content_dict['beta']),
                                                     int(content_dict['ticks_per_second']),
-                                                    int(content_dict['sim_time']), content_dict['controller'])
+                                                    int(content_dict['sim_time']), content_dict['controller'], content_dict["pid_parameters"])
+
+            
+            
 
             response = {"code": 0, "message": "img prepared"}
         else:

@@ -49,6 +49,9 @@ def launch_simulation(start_height=0.2, min_height=0.1, max_height=0.5, area=0.1
                     "p": -5, "i": -0.4, "d": -0.01
                 }
             }
+        else:
+            print("recive_parameters")
+        
         ctr = pctr.PidController(pid_parameters, ticks_per_second)
     elif controller == "fuzzy":
         ctr = fctr.FuzzyController(max_temp_error)

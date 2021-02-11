@@ -37,7 +37,7 @@
             <span> <p>
                 Controler
                 </p>
-                <select id="par-14" name="controller" value="none">
+                <select class= "controller-val" id="par-14" name="controller" value="none">
                     <option value="none">none</option>
                     <option value="pid">PID</option>
                     <option value="fuzzy">Fuzzy</option>
@@ -45,10 +45,27 @@
             </span>
         </div>
 
+        <div class="parameters-row pid_parameters" style="display: none;">
+
+            <span><p>input P:</p> <input  id="par-i_p" name="input_p" value="5"></span>
+            <span><p>input I:</p> <input  id="par-i_i" name="input_i" value="1"></span>
+            <span><p>input D:</p> <input  id="par-i_d" name="input_d" value="0.01"></span>
+
+            <span><p>output P:</p> <input  id="par-o_p" name="output_p" value="0.3"></span>
+            <span><p>output I:</p> <input  id="par-o_i" name="output_i" value="0.5"></span>
+            <span><p>output D:</p> <input  id="par-o_d" name="output_d" value="0.0001"></span>
+
+            <span><p>temp P:</p> <input  id="par-t_p" name="temp_p" value="-5"></span>
+            <span><p>temp I:</p> <input  id="par-t_i" name="temp_i" value="-0.4"></span>
+            <span><p>temp D:</p> <input  id="par-t_d" name="temp_d" value="-0.01"></span>
+            
+        </div>
+
         <span><button class=btn id="sim_start">Start Symulacji</button> </span>
     </div>
 
     <div class="parameters-box">
+        <div class="title"> Generuj wykres</div>
         <ul class="plot-parameters">
             <li class="parameters-row">     
                 <span class="nr" id ="1"> <p>ID</p>1</span> 
@@ -86,6 +103,7 @@
         </ul>
         <span><button class=btn id="plot_start">Generuj wykres</button> </span>
         <span><button class=btn id="add_plot">Dodaj wykres</button> </span>
+        <span><button class=btn id="remove_plot">Usuń wykres</button> </span>
     </div>
 
     <div class="chart-box">

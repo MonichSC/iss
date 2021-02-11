@@ -64,3 +64,8 @@ header{
     margin: 7px;
     padding: 6px;
 }
+
+.pid_parameters{
+  padding: 5px;
+  border: solid 1px darkblue; 
+}

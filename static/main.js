@@ -1,5 +1,5 @@
 var x = new XMLHttpRequest();
-
+let simulation_prepared = false;
 
 // --------------------------------------------------------------------------
 // Show wait animation
@@ -46,10 +46,35 @@ function p(t) {
 // Run
 // --------------------------------------------------------------------------
 function iss_go() {
+    let pidPAR = null;
 
     let parameters = new Array();
     for (let step = 1; step <= 14; step++) {
         parameters.push(document.getElementById("par-"+step).value);
+    }
+
+    const pid_parameters = document.querySelector(".pid_parameters");
+    const selected_controller = document.querySelector(".controller-val").value
+    console.log(selected_controller)
+    if (selected_controller == "pid")
+    {
+        pidPAR = 
+        {
+            "input": {
+                    "p": parseFloat(pid_parameters.querySelector("#par-i_p").value),
+                    "i": parseFloat(pid_parameters.querySelector("#par-i_i").value), 
+                    "d": parseFloat(pid_parameters.querySelector("#par-i_d").value)},
+            "output":   {
+                    "p": parseFloat(pid_parameters.querySelector("#par-o_p").value),
+                    "i": parseFloat(pid_parameters.querySelector("#par-o_i").value), 
+                    "d": parseFloat(pid_parameters.querySelector("#par-o_d").value)},
+            "temperature": 
+            {
+                    "p": parseFloat(pid_parameters.querySelector("#par-t_i").value),
+                    "i": parseFloat(pid_parameters.querySelector("#par-t_p").value), 
+                    "d": parseFloat(pid_parameters.querySelector("#par-t_d").value)
+            }
+        }
     }
 
     x.onreadystatechange = function (e) {
@@ -66,14 +91,15 @@ function iss_go() {
                 else    // ok
                 {
                     const par_box = document.querySelector(".parameters-box")
-                    console.log(par_box)
-                    for (let el of par_box.querySelectorAll(".parameters-row span"))
+                    for (let el of par_box.querySelectorAll(".parameters-row"))
                     {
                         el.style.display = "none";
                     }
                         par_box.querySelector("button").style.display = "none";
                         par_box.querySelector(".title").style.fontSize= "23px";
                         par_box.style.flexDirection = "row";
+                        simulation_prepared = true
+                        show_plot_parameters();
                         p("iss_go OK");
 
                 }
@@ -91,14 +117,50 @@ function iss_go() {
     x.send(JSON.stringify({ 
         "start_level": parameters[0], "min_height": parameters[1], "max_height": parameters[2], "area": parameters[3],
         "start_temp": parameters[4], "target_temp": parameters[5], "max_temp_error": parameters[6], "heater_max_power": parameters[7], "max_fluid_input": parameters[8],
-        "input_fluid_temp": parameters[9], "beta": parameters[10], "ticks_per_second": parameters[11], "sim_time": parameters[12], "controller": parameters[13]
+        "input_fluid_temp": parameters[9], "beta": parameters[10], "ticks_per_second": parameters[11], "sim_time": parameters[12], "controller": parameters[13], "pid_parameters": pidPAR
 }));
 
     console.log("wyslano");
 }
 
-const get_plot = () =>{
 
+const hide_plot_parameters = ()=> 
+{
+    const par_box = document.querySelector(".plot-parameters")
+                    par_box.style.display = "none";
+                    par_box.parentElement.querySelectorAll("button").forEach(el => {
+                        el.style.display = "none"; 
+                    });
+                        par_box.parentElement.querySelector(".title").style.fontSize= "23px";
+                        par_box.parentElement.style.flexDirection = "row";
+}
+
+const show_plot_parameters = ()=> {
+    const par_box = document.querySelector(".plot-parameters")
+    par_box.style.display = "block";
+    par_box.parentElement.querySelectorAll("button").forEach(el => {
+
+        if(!(el.id == "remove_plot"))
+        {
+            el.style.display = "block";
+        }
+        else{
+            if(par_box.childNodes.length > 3)
+            {
+                document.querySelector("#remove_plot").style.display = "block";
+            }
+        }
+    });
+    par_box.parentElement.querySelector(".title").style.fontSize= "20px";
+    par_box.parentElement.querySelector(".title").style.marginBottom= "5px";
+    par_box.parentElement.style.flexDirection = "column";
+}
+
+
+
+const get_plot = () =>{
+    if(simulation_prepared)
+    {
     x.onreadystatechange = function (e) {
         if (x.readyState == 4) {
             wait_off();
@@ -116,6 +178,9 @@ const get_plot = () =>{
                     var d = new Date();
                     document.getElementById("plot").src = "/plot.png?ver=" + d.getTime();
                     document.getElementById("chart_par").style.display = "block";
+
+                    hide_plot_parameters();
+                        p("iss_go OK");        
                 }
             }
             else    // empty
@@ -145,31 +210,69 @@ const get_plot = () =>{
     x.send(data);
     console.log("plot_start");
 }
-
+else{alert("Aby wygenerować wykres należy przeprowadzić symulację")}
+}
 
 const add_plot = () => {
-
     const parameters_list = document.querySelector(".plot-parameters")
-    console.log(parameters_list)
     const newLi = document.querySelector('.plot-parameters .parameters-row').cloneNode(true);
     newLi.querySelector(".nr").innerHTML = `<p>ID</p>${parameters_list.children.length+1}` 
     parameters_list.appendChild(newLi)
+    
+    document.querySelector("#remove_plot").style.display = "block";
+    
+}
+
+const remove_plot = () => {
+    const parameters_list = document.querySelector(".plot-parameters")
+    parameters_list.removeChild(parameters_list.childNodes[parameters_list.childNodes.length-1]);
+    console.log(parameters_list.childNodes.length);
+    if(parameters_list.childNodes.length< 4)
+    {
+        document.querySelector("#remove_plot").style.display = "none";
+    }
 }
 
 window.addEventListener("DOMContentLoaded", (e)=>{
+
+    hide_plot_parameters();
+    document.querySelector("#remove_plot").style.display = "none";
+
     document.querySelector("#sim_start").addEventListener("click", iss_go);
     document.querySelector("#plot_start").addEventListener("click", get_plot);
     document.querySelector("#add_plot").addEventListener("click", add_plot);
+    document.querySelector("#remove_plot").addEventListener("click", remove_plot);
     document.querySelector(".parameters-box").addEventListener("click", event=>{
-        for (let el of event.target.querySelectorAll(".parameters-row span"))
+        for (let el of event.target.querySelectorAll(".parameters-row"))
         {
-            el.style.display = "block";
+            el.style.display = "flex";
         }
+
+        if( document.querySelector(".controller-val").value == "pid")
+        {
+            document.querySelector(".pid_parameters").style.display = "flex";
+        }
+        else{
+            document.querySelector(".pid_parameters").style.display = "none";
+        }
+
+
+
         event.target.querySelector(".title").style.fontSize= "20px";
         event.target.querySelector(".title").style.marginBottom= "5px";
         event.target.style.flexDirection = "column";
         event.target.querySelector("button").style.display = "block";
-
+        hide_plot_parameters();
+    })
+    document.querySelectorAll(".parameters-box")[1].addEventListener("click", show_plot_parameters)
+    document.querySelector(".controller-val").addEventListener("change", e=>{
+        if(e.target.value == "pid")
+        {
+            document.querySelector(".pid_parameters").style.display = "flex";
+        }
+        else{
+            document.querySelector(".pid_parameters").style.display = "none";
+        }
     })
 })
 
