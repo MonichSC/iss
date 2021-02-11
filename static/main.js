@@ -187,13 +187,13 @@ function get_plot()
                 }
                 else    // ok
                 {
-                    p("get_plot OK");
+//                    p("get_plot OK");
                     var d = new Date();
                     document.getElementById("plot").src = "/plot.png?ver=" + d.getTime();
                     document.getElementById("chart_par").style.display = "block";
 
 //                    hide_plot_parameters();
-                        p("get_plot OK");        
+//                        p("get_plot OK");        
                 }
             }
             else    // empty
@@ -205,8 +205,9 @@ function get_plot()
 
     wait();
 
-/*    const plots = document.getElementById("plot-parameters").querySelectorAll("div");
+/*    const plots = document.getElementById("plot-parameters").querySelectorAll("li");
 
+    
     console.log(plots);*/
 
     array=[];
@@ -215,7 +216,14 @@ function get_plot()
         const plot_color = el.querySelector("#plot_colors").value
         const plot_values = el.querySelector("#plot_values").value
         array.push({"values_to_plot": plot_values, "color_for_plot": plot_color})
-    });*/
+    });
+
+    
+    while (document.getElementById("plot-parameters-"+i))
+        array.push....
+    
+    
+    */
 
     x.open("POST", "/get_plot", true);
     x.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
