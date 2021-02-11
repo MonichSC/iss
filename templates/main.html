@@ -1,77 +1,104 @@
-</html>
+<!DOCTYPE html>
+<html>
 
 <head>
     <meta charset="UTF-8">
     <title>ISS Lab</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/main.css')}}">
-    <link rel="stylesheet" type="text/css" href="static/">
+    <!--link rel="stylesheet" type="text/css" href="static/"-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 
 <body>
-    <header>
-        <h1>ISS Lab</h1>
-    </header>
-    <div class="parameters-box">
-        <div class="title"> Parametry Symulacji</div>
-        <div class="parameters-row">
-            <span><p>Start height:</p> <input  id="par-1" name="start_level" value="0.2"></span>
-            <span><p>Min height:</p> <input  id="par-2" name="min_height" value="0.1"></span>
-            <span><p>Max height:</p> <input  id="par-3" name="max_height" value="0.5"></span>
-            <span><p>Area:</p> <input id="par-4" name="area" value="0.1"></span>
-            <span><p></p></span>
+
+    <!-- NAGŁÓWEK -->
+
+    <div class="jumbotron jumbotron-fluid bg-info">
+        <div class="row">
+            <div class="col-auto">
+                <h1 class="text-light"><object data="img/pcb_design.svg" class="logo vab" type="image/svg+xml"></object>ISS Lab</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- PARAMETRY OGÓLNE -->
+
+    <h2>Parametry symulacji</h2>
+
+    <div class="row rlform">
+    
+        <div class="col parameters-row">
+            <p>Start height: <input class=w30p id="par-1" name="start_level" value="0.2" autofocus><span class=unit>m</span></p>
+            <p>Min. height: <input class=w30p id="par-2" name="min_height" value="0.1"><span class=unit>m</span></p>
+            <p>Max height: <input class=w30p id="par-3" name="max_height" value="0.5"><span class=unit>m</span></p>
+            <p>Area: <input class=w30p id="par-4" name="area" value="0.1"><span class=unit>m²</span></p>
         </div>
 
-        <div class="parameters-row">
-            <span> <p>Start temp: </p> <input  id="par-5" name="start_temp" value="22"></span>
-            <span> <p>Target temp: </p> <input  id="par-6" name="target_temp" value="66"></span>
-            <span> <p>Max temp error: </p> <input  id="par-7" name="max_temp_error" value="3"></span>
-            <span> <p>Heater max power: </p> <input  id="par-8" name="heater_max_power" value="2000"></span>
-            <span> <p>Max fluid input: </p> <input  id="par-9" name="max_fluid_input" value="0.2"></span>
+        <div class="col parameters-row">
+            <p>Start temp: <input class=w30p id="par-5" name="start_temp" value="22"><span class=unit>°C</span></p>
+            <p>Target temp: <input class=w30p id="par-6" name="target_temp" value="66"><span class=unit>°C</span></p>
+            <p>Max temp error: <input class=w30p id="par-7" name="max_temp_error" value="3"><span class=unit>°C</span></p>
+            <p>Heater max power: <input class=w30p id="par-8" name="heater_max_power" value="2000"><span class=unit>W</span></p>
+            <p>Max fluid input: <input class=w30p id="par-9" name="max_fluid_input" value="0.2"><span class=unit>m³/h</span></p>
         </div>
-        <div class="parameters-row">
-            <span> <p>input_fluid_temp: </p> <input  id="par-10" name="input_fluid_temp" value="15"></span>
-            <span> <p>beta: </p> <input  id="par-11" name="beta" value="0.035"></span>
-            <span> <p>ticks_per_second: </p> <input  id="par-12" name="ticks_per_second" value="1000"></span>
-            <span> <p>sim_time: </p> <input  id="par-13" name="sim_time" value="2"></span>
-            <span> <p>
-                Controler
-                </p>
-                <select class= "controller-val" id="par-14" name="controller" value="none">
+
+        <div class="col parameters-row">
+            <p>input_fluid_temp: <input class=w30p id="par-10" name="input_fluid_temp" value="15"><span class=unit>°C</span></p>
+            <p>beta: <input class=w30p id="par-11" name="beta" value="0.035"><span class=unit></span></p>
+            <p>ticks_per_second: <input class=w30p id="par-12" name="ticks_per_second" value="1000"><span class=unit></span></p>
+            <p>sim_time: <input class=w30p id="par-13" name="sim_time" value="2"><span class=unit>s</span></p>
+            <p>Kontroler: <select class="w30p" id="par-14" name="controller" value="none">
                     <option value="none">none</option>
                     <option value="pid">PID</option>
                     <option value="fuzzy">Fuzzy</option>
-                  </select>
-            </span>
+                  </select><span class=unit></span></p>
         </div>
 
-        <div class="parameters-row pid_parameters" style="display: none;">
-
-            <span><p>input P:</p> <input  id="par-i_p" name="input_p" value="5"></span>
-            <span><p>input I:</p> <input  id="par-i_i" name="input_i" value="1"></span>
-            <span><p>input D:</p> <input  id="par-i_d" name="input_d" value="0.01"></span>
-
-            <span><p>output P:</p> <input  id="par-o_p" name="output_p" value="0.3"></span>
-            <span><p>output I:</p> <input  id="par-o_i" name="output_i" value="0.5"></span>
-            <span><p>output D:</p> <input  id="par-o_d" name="output_d" value="0.0001"></span>
-
-            <span><p>temp P:</p> <input  id="par-t_p" name="temp_p" value="-5"></span>
-            <span><p>temp I:</p> <input  id="par-t_i" name="temp_i" value="-0.4"></span>
-            <span><p>temp D:</p> <input  id="par-t_d" name="temp_d" value="-0.01"></span>
-            
-        </div>
-
-        <span><button class=btn id="sim_start">Start Symulacji</button> </span>
     </div>
 
-    <div class="parameters-box">
-        <div class="title"> Generuj wykres</div>
-        <ul class="plot-parameters">
-            <li class="parameters-row">     
-                <span class="nr" id ="1"> <p>ID</p>1</span> 
-                <span>
-                    <p>kolor</p>
-                    <select id="plot_colors" name="controller" value="tab:blue">
+    <!-- PARAMETRY PID -->
+
+    <div class="row rlform" id="pid_parameters" style="display:none;">
+
+        <div class="col parameters-row">
+            <p>Input P: <input class=w30p id="par-i_p" name="input_p" value="5"><span class=unit></span></p>
+            <p>Input I: <input class=w30p id="par-i_i" name="input_i" value="1"><span class=unit></span></p>
+            <p>Input D: <input class=w30p id="par-i_d" name="input_d" value="0.01"><span class=unit></span></p>
+        </div>
+
+        <div class="col parameters-row">
+            <p>Output P: <input class=w30p id="par-o_p" name="output_p" value="0.3"><span class=unit></span></p>
+            <p>Output I: <input class=w30p id="par-o_i" name="output_i" value="0.5"><span class=unit></span></p>
+            <p>Output D: <input class=w30p id="par-o_d" name="output_d" value="0.0001"><span class=unit></span></p>
+        </div>
+
+        <div class="col parameters-row">
+            <p>Temp P: <input class=w30p id="par-t_p" name="temp_p" value="-5"><span class=unit></span></p>
+            <p>Temp I: <input class=w30p id="par-t_i" name="temp_i" value="-0.4"><span class=unit></span></p>
+            <p>Temp D: <input class=w30p id="par-t_d" name="temp_d" value="-0.01"><span class=unit></span></p>
+        </div>
+
+    </div>
+
+    <!-- URUCHOM -->
+
+    <div class="row rlform">
+        <p><button class="btn btn-info" id="sim_start">Start symulacji</button> &nbsp; <span id="sim_ready_msg" style="display:none;">Symulacja gotowa</span></p>
+    </div>
+
+    </div>
+
+    <!-- WYKRES -->
+
+    <h2>Wykres</h2>
+
+    <div class="container m30" id="plot" style="display:none;">
+
+        <!--div class="plot-parameters" id="plot-parameters"-->
+            <div class="row" id="plot-parameters-1">     
+                <div class="col">Kolor: <select class=shorter id="plot_colors" name="plot_colors" value="tab:blue">
                         <option style="background-color: dodgerblue;" value="tab:blue">blue</option>
                         <option style="background-color: orange;" value="tab:orange">orange</option>
                         <option style="background-color: green;" value="tab:green">green</option>
@@ -83,13 +110,8 @@
                         <option style="background-color: olive;" value="tab:olive">olive</option>
                         <option style="background-color: teal;" value="tab:cyan">cyan</option>
                     </select>
-                </span>
-                <span> 
-                    <p>przebieg</p>
-                    <select id="plot_values" name="plot_values" value="none">
-                        <option value="height">height</option>
-                        <option value="temperature">temperature</option>
-                        <option value="input">input</option>
+                </div>
+                <div class="col">Wartość: <select class=shorter id="plot_values" name="plot_values" value="none">
                         <option value="height">height</option>
                         <option value="temperature">temperature</option>
                         <option value="input">input</option>
@@ -98,12 +120,15 @@
                         <option value="input_valve">input_valve</option>
                         <option value="output_valve">output_valve</option>
                     </select>
-                </span>
-            </li>
-        </ul>
-        <span><button class=btn id="plot_start">Generuj wykres</button> </span>
-        <span><button class=btn id="add_plot">Dodaj wykres</button> </span>
-        <span><button class=btn id="remove_plot">Usuń wykres</button> </span>
+                </div>
+            </div>
+        <!--/div-->
+
+        <p>&nbsp;</p>
+        <p><button class="btn btn-info" id="plot_start">Generuj wykres</button></p>
+        <p><button class="btn btn-info" id="add_plot">Dodaj wykres</button></p>
+        <p><button class="btn btn-info" id="remove_plot">Usuń wykres</button></p>
+
     </div>
 
     <div class="chart-box">
