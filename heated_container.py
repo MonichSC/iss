@@ -52,30 +52,30 @@ class Heated_container:
 
         # level control
 
-        new_input = self.max_input * self.in_valve_status[-1]
-        self.input.append(new_input)
+#        new_input = self.max_input * self.in_valve_status[-1]
+#        self.input.append(new_input)
 
-        print("new_input: " + str(new_input))
-
-
-        print("self.out_valve_status[-1]: " + str(self.out_valve_status[-1]))
-
-        new_output = self.max_output * self.out_valve_status[-1]
-        self.output.append(new_output)
-
-        print("new_output: " + str(new_output))
+#        print("new_input: " + str(new_input))
 
 
-        new_level = self.level[-1] + (new_input - new_output) / self.area
+#        print("self.out_valve_status[-1]: " + str(self.out_valve_status[-1]))
 
-        if new_level < 0:
-            new_level = 0
-        elif new_level > self.max_level:
-            new_level = self.max_level
+#        new_output = self.max_output * self.out_valve_status[-1]
+#        self.output.append(new_output)
 
-        self.level.append(new_level)
+#        print("new_output: " + str(new_output))
 
-        print("new_level: " + str(new_level))
+
+#        new_level = self.level[-1] + (new_input - new_output) / self.area
+
+#        if new_level < 0:
+#            new_level = 0
+#        elif new_level > self.max_level:
+#            new_level = self.max_level
+
+#        self.level.append(new_level)
+
+#        print("new_level: " + str(new_level))
 
 
         # Temperature control
@@ -94,6 +94,33 @@ class Heated_container:
 #            self.temperature.append(0)
 
 #        self.error.append(self.target_temp - self.temperature[-1])
+
+        # level control
+        output_v = self.out_valve_status[-1] * self.beta * math.sqrt(self.level[-1])
+        output_v = min(output_v, self.level[-1] * self.area)
+        input_v = self.max_input * self.in_valve_status[-1]
+        input_v = min(input_v, (self.max_level - self.level[-1]) * self.area + output_v)
+
+        self.input.append(input_v)
+        self.output.append(output_v)
+        self.level.append(self.level[-1] + (input_v - output_v) / self.area)
+        # Temperature control
+        fluid_before_input_v = self.level[-2] * self.area
+        new_fluid_v = fluid_before_input_v + input_v - output_v
+
+        if new_fluid_v > 0:
+            new_temp = ((fluid_before_input_v - output_v)*self.temperature[-1] + input_v*self.input_temp) / new_fluid_v
+            heaterQ = self.heater_power[-1] * self.max_heater_power
+            # dT = Q / (ro * V * Cp * t)
+            new_temp += heaterQ / (997 * new_fluid_v * 4180)
+            new_temp -= 0.0005
+            self.temperature.append(new_temp)
+        else:
+            self.temperature.append(self.temperature[-1] - 0.0005)
+
+        self.error.append(self.target_temp - self.temperature[-1])
+
+
 
 
     def get_data(self):
