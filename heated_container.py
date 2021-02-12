@@ -96,6 +96,7 @@ class Heated_container:
 #        self.error.append(self.target_temp - self.temperature[-1])
 
         # level control
+
         output_v = self.out_valve_status[-1] * self.beta * math.sqrt(self.level[-1])
         output_v = min(output_v, self.level[-1] * self.area)
         input_v = self.max_input * self.in_valve_status[-1]
@@ -104,7 +105,9 @@ class Heated_container:
         self.input.append(input_v)
         self.output.append(output_v)
         self.level.append(self.level[-1] + (input_v - output_v) / self.area)
+
         # Temperature control
+
         fluid_before_input_v = self.level[-2] * self.area
         new_fluid_v = fluid_before_input_v + input_v - output_v
 
