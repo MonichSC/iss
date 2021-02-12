@@ -26,7 +26,7 @@ class Simulation:
 def launch_simulation(start_level=0.2,
                         min_level=0.1,
                         max_level=1,
-                        area=0.1,
+                        area=0.5,
                         start_temp=20,
                         target_temp=40,
                         max_temp_error=3,
@@ -64,20 +64,20 @@ def launch_simulation(start_level=0.2,
     elif controller == "pid":
         if len(pid_parameters) == 0:
             pid_parameters = {
-                "input": {
-                    "p": 5, "i": 1, "d": 0.01
-                },
-                "output": {
-                    "p": 0.3, "i": 0.5, "d": 0.0001
-                },
+#                "input": {
+#                    "p": 5, "i": 1, "d": 0.01
+#                },
+#                "output": {
+#                    "p": 0.3, "i": 0.5, "d": 0.0001
+#                },
                 "temperature": {
-                    "p": -5, "i": -0.4, "d": -0.01
+                    "p": 0.6, "i": 5, "d": -0.125
                 }
             }
         else:
             print("recive_parameters")
         
-        ctr = pctr.PidController(pid_parameters, 1)
+        ctr = pctr.PidController(pid_parameters, 1, target_temp, input_temp)
     elif controller == "fuzzy":
         ctr = fctr.FuzzyController(max_temp_error)
     else:
