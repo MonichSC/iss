@@ -56,14 +56,14 @@ function iss_go()
 
     let parameters = new Array();
 
-    for (let step = 1; step <= 16; step++)
+    for (let step = 1; step <= 14; step++)
     {
         parameters.push(document.getElementById("par-"+step).value);
     }
 
     const pid_parameters = document.getElementById("pid_parameters");
 
-    let selected_controller = document.getElementById("par-16").value;
+    let selected_controller = document.getElementById("par-14").value;
 
     console.log("selected_controller: " + selected_controller);
 
@@ -129,12 +129,13 @@ function iss_go()
                             "max_heater_power": parameters[7],
                             "input_temp": parameters[8],
                             "max_input": parameters[9],
-                            "max_output": parameters[10],
-                            "start_in_valve_status": parameters[11],
-                            "start_out_valve_status": parameters[12],
-                            "beta": parameters[13],
-                            "sim_time": parameters[14],
-                            "controller": parameters[15],
+//                            "max_output": parameters[10],
+//                            "start_in_valve_status": parameters[11],
+//                            "start_out_valve_status": parameters[12],
+                            "beta": parameters[10],
+                            "sim_time": parameters[11],
+                            "ticks_per_second": parameters[12],
+                            "controller": parameters[13],
                             "pid_parameters": pidPAR}));
 
     console.log("wyslano");
@@ -249,7 +250,7 @@ window.addEventListener("DOMContentLoaded", (e)=>{
     document.querySelector("#remove_plot").addEventListener("click", remove_plot);
 
     // nasłuchiwanie na zdarzenie zmiany controlera
-    document.getElementById("par-16").addEventListener("change", callback_change_controller)
+    document.getElementById("par-14").addEventListener("change", callback_change_controller)
 })
 
 

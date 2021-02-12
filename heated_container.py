@@ -13,10 +13,11 @@ class Heated_container:
                     max_heater_power,
                     input_temp,
                     max_input,
-                    max_output,
-                    start_in_valve_status,
-                    start_out_valve_status,
-                    beta):
+#                    max_output,
+#                    start_in_valve_status,
+#                    start_out_valve_status,
+                    beta,
+                    ticks_per_second):
 
         # Simulation parameters
 
@@ -27,10 +28,10 @@ class Heated_container:
         self.max_temp_error = max_temp_error        # tolerancja
         self.max_heater_power = max_heater_power    # maks. moc grzałki
         self.max_input = max_input                  # maks. przepustowość zaworu wejściowego
-        self.max_output = max_output                # maks. przepustowość zaworu wyjściowego
+#        self.max_output = max_output                # maks. przepustowość zaworu wyjściowego
         self.input_temp = input_temp                # temp. cieczy wpływającej
-
         self.beta = beta                            # beta
+        self.ticks_per_second = ticks_per_second    # częstotliwość próbkowania
 
         # Simulation data
 
@@ -38,12 +39,12 @@ class Heated_container:
         self.temperature = [start_temp]                     # bieżąca temp.
         self.error = [target_temp - start_temp]             # bieżący odchył
         self.heater_power = [0]                             # bieżąca moc grzałki
-        self.in_valve_status = [start_in_valve_status]      # bieżące otwarcie zaworu wejściowego (0..1)
-        self.input = [start_in_valve_status * max_input]    # ilość cieczy wpływającej
-        self.out_valve_status = [start_out_valve_status]    # bieżące otwarcie zaworu wyjściowego (0..1)
-        self.output = [start_out_valve_status * max_output] # ilość cieczy wypływającej
+        self.input = [0]                                    # ilość cieczy wpływającej
+        self.output = [0]                                   # ilość cieczy wypływającej
+        self.in_valve_status = [1]                          # bieżące otwarcie zaworu wejściowego (0..1)
+        self.out_valve_status = [0]                         # bieżące otwarcie zaworu wyjściowego (0..1)
 
-        print("self.out_valve_status[-1]: " + str(self.out_valve_status[-1]) + " (konstruktor)")
+#        print("self.out_valve_status[-1]: " + str(self.out_valve_status[-1]) + " (konstruktor)")
 
 
     def tick(self):
@@ -95,11 +96,11 @@ class Heated_container:
 
 #        self.error.append(self.target_temp - self.temperature[-1])
 
-        # level control
+        # Level control
 
         output_v = self.out_valve_status[-1] * self.beta * math.sqrt(self.level[-1])
         output_v = min(output_v, self.level[-1] * self.area)
-        input_v = self.max_input * self.in_valve_status[-1]
+        input_v = self.max_input * self.in_valve_status[-1] / self.ticks_per_second
         input_v = min(input_v, (self.max_level - self.level[-1]) * self.area + output_v)
 
         self.input.append(input_v)
@@ -115,7 +116,7 @@ class Heated_container:
             new_temp = ((fluid_before_input_v - output_v)*self.temperature[-1] + input_v*self.input_temp) / new_fluid_v
             heaterQ = self.heater_power[-1] * self.max_heater_power
             # dT = Q / (ro * V * Cp * t)
-            new_temp += heaterQ / (997 * new_fluid_v * 4180)
+            new_temp += heaterQ / (997 * new_fluid_v * 4180 * self.ticks_per_second)
             new_temp -= 0.0005
             self.temperature.append(new_temp)
         else:

@@ -30,29 +30,29 @@
     <div class="row rlform">
     
         <div class="col parameters-row">
-            <p class=mbsp>Start level: <input class=w30p id="par-1" name="start_level" value="0.2" autofocus><span class=unit>m</span></p>
-            <p class=mbsp>Min. level: <input class=w30p id="par-2" name="min_level" value="0.1"><span class=unit>m</span></p>
-            <p class=mbsp>Max level: <input class=w30p id="par-3" name="max_level" value="1"><span class=unit>m</span></p>
+            <p class=mbsp>Poziom początkowy: <input class=w30p id="par-1" name="start_level" value="0.2" autofocus><span class=unit>m</span></p>
+            <p class=mbsp>Poziom min.: <input class=w30p id="par-2" name="min_level" value="0.1"><span class=unit>m</span></p>
+            <p class=mbsp>Poziom maks.: <input class=w30p id="par-3" name="max_level" value="1"><span class=unit>m</span></p>
             <p class=mbsp>Area: <input class=w30p id="par-4" name="area" value="0.5"><span class=unit>m²</span></p>
         </div>
 
         <div class="col parameters-row">
-            <p class=mbsp>Start temp: <input class=w30p id="par-5" name="start_temp" value="20"><span class=unit>°C</span></p>
-            <p class=mbsp>Target temp: <input class=w30p id="par-6" name="target_temp" value="40"><span class=unit>°C</span></p>
-            <p class=mbsp>Max temp error: <input class=w30p id="par-7" name="max_temp_error" value="3"><span class=unit>°C</span></p>
-            <p class=mbsp>Max heater power: <input class=w30p id="par-8" name="max_heater_power" value="10000"><span class=unit>W</span></p>
+            <p class=mbsp>Temp. początkowa: <input class=w30p id="par-5" name="start_temp" value="20"><span class=unit>°C</span></p>
+            <p class=mbsp>Temp. docelowa: <input class=w30p id="par-6" name="target_temp" value="40"><span class=unit>°C</span></p>
+            <p class=mbsp>Maks. odchył temp.: <input class=w30p id="par-7" name="max_temp_error" value="3"><span class=unit>°C</span></p>
+            <p class=mbsp>Maks. moc grzałki: <input class=w30p id="par-8" name="max_heater_power" value="10000"><span class=unit>W</span></p>
             <p class=mbsp>Temp. wejściowa: <input class=w30p id="par-9" name="input_temp" value="15"><span class=unit>°C</span></p>
         </div>
 
         <div class="col parameters-row">
-            <p class=mbsp>Max input: <input class=w30p id="par-10" name="max_input" value="0.2"><span class=unit>m³/s</span></p>
-            <p class=mbsp>Max output: <input class=w30p id="par-11" name="max_output" value="0.2"><span class=unit>m³/s</span></p>
-            <p class=mbsp>Start in valve: <input class=w30p id="par-12" name="start_in_valve_status" value="1"><span class=unit></span></p>
-            <p class=mbsp>Start out valve: <input class=w30p id="par-13" name="start_out_valve_status" value="0.1"><span class=unit></span></p>
-            <p class=mbsp>Beta: <input class=w30p id="par-14" name="beta" value="0.035"><span class=unit></span></p>
-            <!--p class=mbsp>ticks_per_second: <input class=w30p id="par-12" name="ticks_per_second" value="1"><span class=unit></span></p-->
-            <p class=mbsp>Czas: <input class=w30p id="par-15" name="sim_time" value="10"><span class=unit>s</span></p>
-            <p class=mbsp>Kontroler: <select class="w30p" id="par-16" name="controller" value="none">
+            <p class=mbsp>Maks. dopływ: <input class=w30p id="par-10" name="max_input" value="0.2"><span class=unit>m³/s</span></p>
+            <!--p class=mbsp style="display:none;">Max output: <input class=w30p id="par-11" name="max_output" value="0.2"><span class=unit>m³/s</span></p>
+            <p class=mbsp style="display:none;">Start in valve: <input class=w30p id="par-12" name="start_in_valve_status" value="1"><span class=unit></span></p>
+            <p class=mbsp style="display:none;">Start out valve: <input class=w30p id="par-13" name="start_out_valve_status" value="0.1"><span class=unit></span></p-->
+            <p class=mbsp>Beta: <input class=w30p id="par-11" name="beta" value="0.035"><span class=unit></span></p>
+            <p class=mbsp>Czas: <input class=w30p id="par-12" name="sim_time" value="10"><span class=unit>s</span></p>
+            <p class=mbsp>Częstotliwość: <input class=w30p id="par-13" name="ticks_per_second" value="1"><span class=unit></span></p>
+            <p class=mbsp>Kontroler: <select class="w30p" id="par-14" name="controller" value="none">
                     <option value="none">none</option>
                     <option value="pid">PID</option>
                     <option value="fuzzy">Fuzzy</option>

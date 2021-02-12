@@ -38,11 +38,12 @@ def iss_go():
                                                     int(content_dict['max_heater_power']),
                                                     int(content_dict['input_temp']),
                                                     float(content_dict['max_input']),
-                                                    float(content_dict['max_output']),
-                                                    float(content_dict['start_in_valve_status']),
-                                                    float(content_dict['start_out_valve_status']),
+#                                                    float(content_dict['max_output']),
+#                                                    float(content_dict['start_in_valve_status']),
+#                                                    float(content_dict['start_out_valve_status']),
                                                     float(content_dict['beta']),
                                                     int(content_dict['sim_time']),
+                                                    int(content_dict['ticks_per_second']),
                                                     content_dict['controller'],
                                                     content_dict["pid_parameters"])
 
