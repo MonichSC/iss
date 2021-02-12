@@ -96,31 +96,35 @@
 
     <div class="container m30" id="plot" style="display:none;">
 
-        <div class="row" id="plot-parameters-1">
-            <span>Kolor: <select class=shorter id="plot_colors" name="plot_colors" value="tab:blue">
-                    <option style="background-color: dodgerblue;" value="tab:blue">blue</option>
-                    <option style="background-color: orange;" value="tab:orange">orange</option>
-                    <option style="background-color: green;" value="tab:green">green</option>
-                    <option style="background-color: firebrick;" value="tab:red">red</option>
-                    <option style="background-color: darkorchid;" value="tab:purple">purple</option>
-                    <option style="background-color: sienna;" value="tab:brown">brown</option>
-                    <option style="background-color: fuchsia;" value="tab:pink">pink</option>
-                    <option style="background-color: gray;" value="tab:gray">gray</option>
-                    <option style="background-color: olive;" value="tab:olive">olive</option>
-                    <option style="background-color: teal;" value="tab:cyan">cyan</option>
-                </select>
-            </span>
-            &nbsp;
-            <span>Wartość: <select class=shorter id="plot_values" name="plot_values" value="none">
-                    <option value="height">height</option>
-                    <option value="temperature">temperature</option>
-                    <option value="input">input</option>
-                    <option value="output">output</option>
-                    <option value="heater_power">heater_power</option>
-                    <option value="input_valve">input_valve</option>
-                    <option value="output_valve">output_valve</option>
-                </select>
-            </span>
+        <div id="plot-parameters-box">
+
+            <div class="row" id="plot-parameters-1">
+                <span>Kolor: <select class=shorter id="plot_colors" name="plot_colors" value="tab:blue">
+                        <option style="background-color: dodgerblue;" value="tab:blue">blue</option>
+                        <option style="background-color: orange;" value="tab:orange">orange</option>
+                        <option style="background-color: green;" value="tab:green">green</option>
+                        <option style="background-color: firebrick;" value="tab:red">red</option>
+                        <option style="background-color: darkorchid;" value="tab:purple">purple</option>
+                        <option style="background-color: sienna;" value="tab:brown">brown</option>
+                        <option style="background-color: fuchsia;" value="tab:pink">pink</option>
+                        <option style="background-color: gray;" value="tab:gray">gray</option>
+                        <option style="background-color: olive;" value="tab:olive">olive</option>
+                        <option style="background-color: teal;" value="tab:cyan">cyan</option>
+                    </select>
+                </span>
+                &nbsp;
+                <span>Wartość: <select class=shorter id="plot_values" name="plot_values" value="none">
+                        <option value="height">height</option>
+                        <option value="temperature">temperature</option>
+                        <option value="input">input</option>
+                        <option value="output">output</option>
+                        <option value="heater_power">heater_power</option>
+                        <option value="input_valve">input_valve</option>
+                        <option value="output_valve">output_valve</option>
+                    </select>
+                </span>
+            </div>
+            
         </div>
 
         <p>&nbsp;</p>
@@ -132,7 +136,7 @@
 
     <div class="chart-box">
         <div id="chart_par"style="display:none;">
-            <img id="plot" name="chart" src="{{url_for('static', filename='plot.png')}}" />
+            <img id="plot-img" name="chart" src="{{url_for('static', filename='plot.png')}}" />
         </div>
 
     </div>

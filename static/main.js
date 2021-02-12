@@ -101,17 +101,7 @@ function iss_go()
                 }
                 else    // ok
                 {
-//                    const par_box = document.getElementById("parameters-box")
-//                    for (let el of par_box.querySelectorAll(".parameters-row"))
-//                    {
-//                        el.style.display = "none";
-//                    }
-//                        par_box.querySelector("button").style.display = "none";
-//                        par_box.querySelector(".title").style.fontSize= "23px";
-//                        par_box.style.flexDirection = "row";
                         simulation_prepared = true;
-                        show_plot_parameters();
-//                        p("iss_go OK");
                         document.getElementById("sim_ready_msg").style.display = "";
                         document.getElementById("plot").style.display = "";
                 }
@@ -134,38 +124,24 @@ function iss_go()
 }
 
 
-function hide_plot_parameters()
-{
-    const par_box = document.getElementById("plot");
-    par_box.style.display = "none";
+// --------------------------------------------------------------------------
+// change of controller
+// --------------------------------------------------------------------------
+function callback_change_controller(e){
+    if(e.target.value == "pid")
+    {
+        document.getElementById("pid_parameters").style.display = "flex";
+    }
+    else
+    {
+        document.getElementById("pid_parameters").style.display = "none";
+    }
 }
 
 
-function show_plot_parameters()
-{
-    const par_box = document.getElementById("plot-parameters-1")
-    par_box.style.display = "block";
-    par_box.parentElement.querySelectorAll("button").forEach(el => {
-
-        if(!(el.id == "remove_plot"))
-        {
-            el.style.display = "block";
-        }
-        else
-        {
-            if(par_box.childNodes.length > 3)
-            {
-                document.querySelector("#remove_plot").style.display = "block";
-            }
-        }
-    });
-/*    par_box.parentElement.querySelector(".title").style.fontSize= "20px";
-    par_box.parentElement.querySelector(".title").style.marginBottom= "5px";
-    par_box.parentElement.style.flexDirection = "column";*/
-}
-
-
-
+// --------------------------------------------------------------------------
+//  generate and show plot
+// --------------------------------------------------------------------------
 function get_plot()
 {
     if (!simulation_prepared)
@@ -187,13 +163,9 @@ function get_plot()
                 }
                 else    // ok
                 {
-//                    p("get_plot OK");
                     var d = new Date();
-                    document.getElementById("plot").src = "/plot.png?ver=" + d.getTime();
-                    document.getElementById("chart_par").style.display = "block";
-
-//                    hide_plot_parameters();
-//                        p("get_plot OK");        
+                    document.getElementById("plot-img").src = "/plot.png?ver=" + d.getTime();
+                    document.getElementById("chart_par").style.display = "block";    
                 }
             }
             else    // empty
@@ -204,55 +176,44 @@ function get_plot()
     };
 
     wait();
-
-/*    const plots = document.getElementById("plot-parameters").querySelectorAll("li");
-
-    
-    console.log(plots);*/
-
     array=[];
-
-/*    plots.forEach(el => {
-        const plot_color = el.querySelector("#plot_colors").value
-        const plot_values = el.querySelector("#plot_values").value
-        array.push({"values_to_plot": plot_values, "color_for_plot": plot_color})
-    });
-
-    
-    while (document.getElementById("plot-parameters-"+i))
-        array.push....
-    
-    
-    */
-
+   let i = 1;
+   while (plot_parameter = document.getElementById("plot-parameters-"+i))
+   {
+      const plot_color = plot_parameter.querySelector("#plot_colors").value
+      const plot_values = plot_parameter.querySelector("#plot_values").value
+      array.push({"values_to_plot": plot_values, "color_for_plot": plot_color})
+      i++;
+   }
+  
     x.open("POST", "/get_plot", true);
     x.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-//    data = JSON.stringify(array);
-    data = "[{\"color_for_plot\":\"dodgerblue\",\"values_to_plot\":\"height\"}]";
-
-    console.log(data);
-
+    data = JSON.stringify(array);
     x.send(data);
     console.log("plot_start");
 }
 
+// --------------------------------------------------------------------------
+//  add new values to plot
+// --------------------------------------------------------------------------
+function add_plot () {
 
-const add_plot = () => {
-    const parameters_list = document.getElementById("plot-parameters")
-/*    const newLi = document.getElementById('plot-parameters parameters-row').cloneNode(true);
-    newLi.querySelector(".nr").innerHTML = `<p>ID</p>${parameters_list.children.length+1}` 
-    parameters_list.appendChild(newLi)
-    
-    document.querySelector("#remove_plot").style.display = "block";*/
-    
+    const parameters_list = document.getElementById("plot-parameters-box");
+    const new_row = document.getElementById('plot-parameters-1').cloneNode(true);
+    new_row.id = `plot-parameters-${parameters_list.childNodes.length-1}`
+    parameters_list.appendChild(new_row)
+    document.querySelector("#remove_plot").style.display = "block";
 }
 
 
-const remove_plot = () => {
-    const parameters_list = document.querySelector(".plot-parameters")
+// --------------------------------------------------------------------------
+//  remove values for plot
+// --------------------------------------------------------------------------
+function remove_plot(){
+    const parameters_list = document.getElementById("plot-parameters-box");
     parameters_list.removeChild(parameters_list.childNodes[parameters_list.childNodes.length-1]);
     console.log(parameters_list.childNodes.length);
-    if(parameters_list.childNodes.length< 4)
+    if(parameters_list.childNodes.length < 4)
     {
         document.querySelector("#remove_plot").style.display = "none";
     }
@@ -261,48 +222,16 @@ const remove_plot = () => {
 
 window.addEventListener("DOMContentLoaded", (e)=>{
 
-//    hide_plot_parameters();
     document.querySelector("#remove_plot").style.display = "none";
 
+    // nasłuchiwanie zdarzeń od buttons
     document.querySelector("#sim_start").addEventListener("click", iss_go);
     document.querySelector("#plot_start").addEventListener("click", get_plot);
     document.querySelector("#add_plot").addEventListener("click", add_plot);
     document.querySelector("#remove_plot").addEventListener("click", remove_plot);
 
-/*    document.querySelector(".parameters-box").addEventListener("click", event=>{
-        for (let el of event.target.querySelectorAll(".parameters-row"))
-        {
-            el.style.display = "flex";
-        }
-
-        if( document.getElementById("par-14").value == "pid")
-        {
-            document.getElementById("pid_parameters").style.display = "flex";
-        }
-        else
-        {
-            document.getElementById("pid_parameters").style.display = "none";
-        }
-
-        event.target.querySelector(".title").style.fontSize= "20px";
-        event.target.querySelector(".title").style.marginBottom= "5px";
-        event.target.style.flexDirection = "column";
-        event.target.querySelector("button").style.display = "block";
-//        hide_plot_parameters();
-    })*/
-
-//    document.querySelectorAll(".parameters-box")[1].addEventListener("click", show_plot_parameters)
-
-/*    document.getElementById("par-14").addEventListener("change", e=>{
-        if(e.target.value == "pid")
-        {
-            document.getElementById("pid_parameters").style.display = "flex";
-        }
-        else
-        {
-            document.getElementById("pid_parameters").style.display = "none";
-        }
-    })*/
+    // nasłuchiwanie na zdarzenie zmiany controlera
+    document.getElementById("par-14").addEventListener("change", callback_change_controller)
 })
 
 

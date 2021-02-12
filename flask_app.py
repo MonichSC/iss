@@ -24,9 +24,8 @@ def hello():
 def iss_go():
     global raw_data
     if request.method == 'POST':
-        print("----------------------------")
         content_dict = json.loads(request.data)
-        print(content_dict["pid_parameters"])
+        print(content_dict)
 
         if content_dict['start_level'] != "":
             raw_data = simulation.launch_simulation(float(content_dict['start_level']), float(content_dict['min_height']),
