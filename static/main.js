@@ -56,14 +56,14 @@ function iss_go()
 
     let parameters = new Array();
 
-    for (let step = 1; step <= 14; step++)
+    for (let step = 1; step <= 16; step++)
     {
         parameters.push(document.getElementById("par-"+step).value);
     }
 
     const pid_parameters = document.getElementById("pid_parameters");
 
-    let selected_controller = document.getElementById("par-14").value;
+    let selected_controller = document.getElementById("par-16").value;
 
     console.log("selected_controller: " + selected_controller);
 
@@ -114,11 +114,28 @@ function iss_go()
     };
 
     wait();
+
     x.open("POST", "/iss_go", true);
+
     x.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    x.send(JSON.stringify({"start_level": parameters[0], "min_height": parameters[1], "max_height": parameters[2], "area": parameters[3],
-        "start_temp": parameters[4], "target_temp": parameters[5], "max_temp_error": parameters[6], "heater_max_power": parameters[7], "max_fluid_input": parameters[8],
-        "input_fluid_temp": parameters[9], "beta": parameters[10], "ticks_per_second": parameters[11], "sim_time": parameters[12], "controller": parameters[13], "pid_parameters": pidPAR}));
+
+    x.send(JSON.stringify({"start_level": parameters[0],
+                            "min_level": parameters[1],
+                            "max_level": parameters[2],
+                            "area": parameters[3],
+                            "start_temp": parameters[4],
+                            "target_temp": parameters[5],
+                            "max_temp_error": parameters[6],
+                            "max_heater_power": parameters[7],
+                            "input_temp": parameters[8],
+                            "max_input": parameters[9],
+                            "max_output": parameters[10],
+                            "start_in_valve_status": parameters[11],
+                            "start_out_valve_status": parameters[12],
+                            "beta": parameters[13],
+                            "sim_time": parameters[14],
+                            "controller": parameters[15],
+                            "pid_parameters": pidPAR}));
 
     console.log("wyslano");
 }

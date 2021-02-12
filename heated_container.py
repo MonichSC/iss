@@ -2,67 +2,102 @@ import math
 
 
 class Heated_container:
-    def __init__(self, start_height, min_height, max_height, area,
-                 start_temp, target_temp, max_temp_error, heater_max_power,
-                 max_fluid_input, input_fluid_temp, beta,
-                 ticks_per_second):
+    def __init__(self,
+                    start_level,
+                    min_level,
+                    max_level,
+                    area,
+                    start_temp,
+                    target_temp,
+                    max_temp_error,
+                    max_heater_power,
+                    input_temp,
+                    max_input,
+                    max_output,
+                    start_in_valve_status,
+                    start_out_valve_status,
+                    beta):
+
         # Simulation parameters
-        self.min_height = min_height
-        self.max_height = max_height
-        self.area = area
-        self.target_temp = target_temp
-        self.max_temp_error = max_temp_error
-        self.heater_max_power = heater_max_power
-        self.max_fluid_input = max_fluid_input
-        self.input_fluid_temp = input_fluid_temp
-        self.beta = beta
-        self.ticks_per_second = ticks_per_second
+
+        self.min_level = min_level                  # minimalna wysokosc cieczy
+        self.max_level = max_level                  # maksymalna wysokosc cieczy
+        self.area = area                            # powierzchnia zbiornika
+        self.target_temp = target_temp              # temp. docelowa
+        self.max_temp_error = max_temp_error        # tolerancja
+        self.max_heater_power = max_heater_power    # maks. moc grzałki
+        self.max_input = max_input                  # maks. przepustowość zaworu wejściowego
+        self.max_output = max_output                # maks. przepustowość zaworu wyjściowego
+        self.input_temp = input_temp                # temp. cieczy wpływającej
+
+        self.beta = beta                            # beta
+
         # Simulation data
-        self.height = [start_height]
-        self.temperature = [start_temp]
-        self.error = [target_temp - start_temp]
-        self.input_history = [0]
-        self.output_history = [0]
-        self.heater_power = [0]
-        self.input_valve_status = [0]
-        self.output_valve_status = [0]
+
+        self.level = [start_level]                          # bieżący poziom cieczy
+        self.temperature = [start_temp]                     # bieżąca temp.
+        self.error = [target_temp - start_temp]             # bieżący odchył
+        self.heater_power = [0]                             # bieżąca moc grzałki
+        self.in_valve_status = [start_in_valve_status]      # bieżące otwarcie zaworu wejściowego (0..1)
+        self.input = [start_in_valve_status * max_input]    # ilość cieczy wpływającej
+        self.out_valve_status = [start_out_valve_status]    # bieżące otwarcie zaworu wyjściowego (0..1)
+        self.output = [start_out_valve_status * max_output] # ilość cieczy wypływającej
+
 
     def tick(self):
-        # Height control
-        input_per_second = self.max_fluid_input * self.input_valve_status[-1] / self.area
-        output_per_second = self.output_valve_status[-1] * self.beta * math.sqrt(self.height[-1])
-        self.input_history.append(input_per_second * self.area)
-        self.output_history.append(output_per_second * self.area)
-        new_height = self.height[-1] + (input_per_second - output_per_second) / self.ticks_per_second
-        if new_height < 0:
-            new_height = 0
-        elif new_height > self.max_height:
-            new_height = self.max_height
-        self.height.append(new_height)
+
+        # dla uproszczenia na początek przyjmijmy, że 1 tick = 1 sek.
+
+        # level control
+
+        new_input = self.max_input * self.in_valve_status[-1]
+        self.input.append(new_input)
+
+        print("new_input: " + str(new_input))
+
+        print("self.out_valve_status[-1]: " + str(self.out_valve_status[-1]))
+
+        new_output = self.max_output * self.out_valve_status[-1]
+        self.output.append(new_output)
+
+        print("new_output: " + str(new_output))
+
+        new_level = self.level[-1] + (new_input - new_output) / self.area
+
+        if new_level < 0:
+            new_level = 0
+        elif new_level > self.max_level:
+            new_level = self.max_level
+
+        self.level.append(new_level)
+
+        print("new_level: " + str(new_level))
+
+
         # Temperature control
-        fluid_before_input_v = self.height[-2] * self.area
-        input_fluid_v = input_per_second / self.ticks_per_second
-        new_fluid_v = fluid_before_input_v + input_fluid_v
 
-        if new_fluid_v != 0:
-            new_temp = (fluid_before_input_v*self.temperature[-1] + input_fluid_v*self.input_fluid_temp) / new_fluid_v
-            heaterQ = self.heater_power[-1] * self.heater_max_power
+#        before_input_v = self.level[-2] * self.area
+#        input_v = new_input
+#        new_v = before_input_v + input_v
+
+#        if new_v != 0:
+#            new_temp = (before_input_v*self.temperature[-1] + input_v*self.input_temp) / new_v
+#            heaterQ = self.heater_power[-1] * self.max_heater_power
             # dT = Q / (ro * V * Cp * t)
-            new_temp += heaterQ / (997 * new_fluid_v * 4190 * self.ticks_per_second)
-            self.temperature.append(new_temp)
-        else:
-            self.temperature.append(0)
+#            new_temp += heaterQ / (997 * new_v * 4190)
+#            self.temperature.append(new_temp)
+#        else:
+#            self.temperature.append(0)
 
-        self.error.append(self.target_temp - self.temperature[-1])
+#        self.error.append(self.target_temp - self.temperature[-1])
+
 
     def get_data(self):
         output = dict()
-        output['height'] = self.height
+        output['level'] = self.level
         output['temperature'] = self.temperature
         output['error'] = self.error
-        output['input'] = self.input_history
-        output['output'] = self.output_history
         output['heater_power'] = self.heater_power
-        output['input_valve'] = self.input_valve_status
-        output['output_valve'] = self.output_valve_status
+        output['input'] = self.input
+        output['output'] = self.output
         return output

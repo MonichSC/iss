@@ -28,15 +28,23 @@ def iss_go():
         print(content_dict)
 
         if content_dict['start_level'] != "":
-            raw_data = simulation.launch_simulation(float(content_dict['start_level']), float(content_dict['min_height']),
-                                                    float(content_dict['max_height']), float(content_dict['area']),
-                                                    int(content_dict['start_temp']), int(content_dict['target_temp']),
+            raw_data = simulation.launch_simulation(float(content_dict['start_level']),
+                                                    float(content_dict['min_level']),
+                                                    float(content_dict['max_level']),
+                                                    float(content_dict['area']),
+                                                    int(content_dict['start_temp']),
+                                                    int(content_dict['target_temp']),
                                                     int(content_dict['max_temp_error']),
-                                                    int(content_dict['heater_max_power']),
-                                                    float(content_dict['max_fluid_input']),
-                                                    int(content_dict['input_fluid_temp']), float(content_dict['beta']),
-                                                    int(content_dict['ticks_per_second']),
-                                                    int(content_dict['sim_time']), content_dict['controller'], content_dict["pid_parameters"])
+                                                    int(content_dict['max_heater_power']),
+                                                    int(content_dict['input_temp']),
+                                                    float(content_dict['max_input']),
+                                                    float(content_dict['max_output']),
+                                                    float(content_dict['start_in_valve_status']),
+                                                    float(content_dict['start_out_valve_status']),
+                                                    float(content_dict['beta']),
+                                                    int(content_dict['sim_time']),
+                                                    content_dict['controller'],
+                                                    content_dict["pid_parameters"])
 
             
             
@@ -46,6 +54,7 @@ def iss_go():
             response = {"code": 1, "message": "bad_value"}
 
     return jsonify(response)
+
 
 @app.route('/get_plot', methods=['GET', 'POST'])
 def get_plot():
@@ -72,13 +81,14 @@ def get_plot():
     try:
         os.remove("static/plot.png")
     except:
-        print("an exception occurred: file not exist")
+        print("an exception occurred: file does not exist")
 
     fig.set_size_inches(14, 4)
     fig.savefig('static/plot.png')
     response = {"code": 0, "message": "img prepared"}
  
     return jsonify(response)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

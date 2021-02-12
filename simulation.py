@@ -11,9 +11,10 @@ class Simulation:
         self.sim_object = sim_object
         self.controller = controller
 
-    def run(self, simulation_time, ticks_per_second):
-        print(f"Running simulation for {simulation_time} minutes")
-        totalTicks = simulation_time * ticks_per_second #* 60
+
+    def run(self, simulation_time, ticks_per_second=1):
+        print(f"Running simulation for {simulation_time} seconds")
+        totalTicks = simulation_time
         breakpointFactor = totalTicks / 20
         for i in range(totalTicks):
             if i % breakpointFactor == 0:
@@ -22,17 +23,41 @@ class Simulation:
             self.sim_object.tick()
 
 
-def launch_simulation(start_height=0.2, min_height=0.1, max_height=0.5, area=0.1,
-                      start_temp=22, target_temp=66, max_temp_error=3, heater_max_power=20000,
-                      max_fluid_input=0.2, input_fluid_temp=15, beta=0.035,
-                      ticks_per_second=1000, sim_time=120, controller="none",
-                      pid_parameters=None):
+def launch_simulation(start_level=0.2,
+                        min_level=0.1,
+                        max_level=1,
+                        area=0.1,
+                        start_temp=20,
+                        target_temp=50,
+                        max_temp_error=3,
+                        max_heater_power=2000,
+                        input_temp=15,
+                        max_input=0.2,
+                        max_output=0.2,
+                        start_in_valve_status=1,
+                        start_out_valve_status=0.1,
+                        beta=0.035,
+                        sim_time=10,
+                        controller="none",
+                        pid_parameters=None):
+
     if pid_parameters is None:
         pid_parameters = []
-    sim_object = hc.Heated_container(start_height, min_height, max_height, area,
-                                     start_temp, target_temp, max_temp_error, heater_max_power,
-                                     max_fluid_input, input_fluid_temp, beta,
-                                     ticks_per_second)
+
+    sim_object = hc.Heated_container(start_level,
+                                        min_level,
+                                        max_level,
+                                        area,
+                                        start_temp,
+                                        target_temp,
+                                        max_temp_error,
+                                        max_heater_power,
+                                        input_temp,
+                                        max_input,
+                                        max_output,
+                                        start_in_valve_status,
+                                        start_out_valve_status,
+                                        beta)
 
     if controller == "none":
         ctr = nctr.NullController()
@@ -52,14 +77,14 @@ def launch_simulation(start_height=0.2, min_height=0.1, max_height=0.5, area=0.1
         else:
             print("recive_parameters")
         
-        ctr = pctr.PidController(pid_parameters, ticks_per_second)
+        ctr = pctr.PidController(pid_parameters, 1)
     elif controller == "fuzzy":
         ctr = fctr.FuzzyController(max_temp_error)
     else:
         raise Exception("No such controller found")
 
     sim = Simulation(sim_object, ctr)
-    sim.run(sim_time, ticks_per_second)
+    sim.run(sim_time, 1)
     return sim_object.get_data()
 
 
@@ -79,18 +104,18 @@ def make_plot(raw_data, name, id):
     print(f"{id}/8")
 
 
-if __name__ == '__main__':
-    print("START")
-    raw_data = launch_simulation(controller='fuzzy')
-    print("100.0%, generating diagrams")
+#if __name__ == '__main__':
+#    print("START")
+#    raw_data = launch_simulation(controller='fuzzy')
+#    print("100.0%, generating diagrams")
 
-    make_plot(raw_data, "height", 1)
-    make_plot(raw_data, "temperature", 2)
-    make_plot(raw_data, "error", 3)
-    make_plot(raw_data, "input", 4)
-    make_plot(raw_data, "output", 5)
-    make_plot(raw_data, "heater_power", 6)
-    make_plot(raw_data, "input_valve", 7)
-    make_plot(raw_data, "output_valve", 8)
+#    make_plot(raw_data, "level", 1)
+#    make_plot(raw_data, "temperature", 2)
+#    make_plot(raw_data, "error", 3)
+#    make_plot(raw_data, "input", 4)
+#    make_plot(raw_data, "output", 5)
+#    make_plot(raw_data, "heater_power", 6)
+#    make_plot(raw_data, "input_valve", 7)
+#    make_plot(raw_data, "output_valve", 8)
 
-    print("Finished")
+#    print("Finished")
