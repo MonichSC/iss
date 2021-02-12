@@ -43,6 +43,8 @@ class Heated_container:
         self.out_valve_status = [start_out_valve_status]    # bieżące otwarcie zaworu wyjściowego (0..1)
         self.output = [start_out_valve_status * max_output] # ilość cieczy wypływającej
 
+        print("self.out_valve_status[-1]: " + str(self.out_valve_status[-1]) + " (konstruktor)")
+
 
     def tick(self):
 
@@ -55,12 +57,14 @@ class Heated_container:
 
         print("new_input: " + str(new_input))
 
+
         print("self.out_valve_status[-1]: " + str(self.out_valve_status[-1]))
 
         new_output = self.max_output * self.out_valve_status[-1]
         self.output.append(new_output)
 
         print("new_output: " + str(new_output))
+
 
         new_level = self.level[-1] + (new_input - new_output) / self.area
 
