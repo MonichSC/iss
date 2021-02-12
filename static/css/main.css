@@ -336,5 +336,8 @@ header{
   border: solid 1px darkblue; 
 }
 
+/* margin bottom 4 sim params */
+.mbsp {margin-bottom:7px;}
+
 /* margin bottom 4 plot params */
 .mbpp {margin-bottom:5px;}

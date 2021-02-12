@@ -30,26 +30,26 @@
     <div class="row rlform">
     
         <div class="col parameters-row">
-            <p>Start height: <input class=w30p id="par-1" name="start_level" value="0.2" autofocus><span class=unit>m</span></p>
-            <p>Min. height: <input class=w30p id="par-2" name="min_height" value="0.1"><span class=unit>m</span></p>
-            <p>Max height: <input class=w30p id="par-3" name="max_height" value="0.5"><span class=unit>m</span></p>
-            <p>Area: <input class=w30p id="par-4" name="area" value="0.1"><span class=unit>m²</span></p>
+            <p class=mbsp>Start height: <input class=w30p id="par-1" name="start_level" value="0.2" autofocus><span class=unit>m</span></p>
+            <p class=mbsp>Min. height: <input class=w30p id="par-2" name="min_height" value="0.1"><span class=unit>m</span></p>
+            <p class=mbsp>Max height: <input class=w30p id="par-3" name="max_height" value="0.5"><span class=unit>m</span></p>
+            <p class=mbsp>Area: <input class=w30p id="par-4" name="area" value="0.1"><span class=unit>m²</span></p>
         </div>
 
         <div class="col parameters-row">
-            <p>Start temp: <input class=w30p id="par-5" name="start_temp" value="22"><span class=unit>°C</span></p>
-            <p>Target temp: <input class=w30p id="par-6" name="target_temp" value="66"><span class=unit>°C</span></p>
-            <p>Max temp error: <input class=w30p id="par-7" name="max_temp_error" value="3"><span class=unit>°C</span></p>
-            <p>Heater max power: <input class=w30p id="par-8" name="heater_max_power" value="2000"><span class=unit>W</span></p>
-            <p>Max fluid input: <input class=w30p id="par-9" name="max_fluid_input" value="0.2"><span class=unit>m³/h</span></p>
+            <p class=mbsp>Start temp: <input class=w30p id="par-5" name="start_temp" value="22"><span class=unit>°C</span></p>
+            <p class=mbsp>Target temp: <input class=w30p id="par-6" name="target_temp" value="66"><span class=unit>°C</span></p>
+            <p class=mbsp>Max temp error: <input class=w30p id="par-7" name="max_temp_error" value="3"><span class=unit>°C</span></p>
+            <p class=mbsp>Heater max power: <input class=w30p id="par-8" name="heater_max_power" value="2000"><span class=unit>W</span></p>
+            <p class=mbsp>Max fluid input: <input class=w30p id="par-9" name="max_fluid_input" value="0.2"><span class=unit>m³/h</span></p>
         </div>
 
         <div class="col parameters-row">
-            <p>input_fluid_temp: <input class=w30p id="par-10" name="input_fluid_temp" value="15"><span class=unit>°C</span></p>
-            <p>beta: <input class=w30p id="par-11" name="beta" value="0.035"><span class=unit></span></p>
-            <p>ticks_per_second: <input class=w30p id="par-12" name="ticks_per_second" value="1000"><span class=unit></span></p>
-            <p>sim_time: <input class=w30p id="par-13" name="sim_time" value="2"><span class=unit>s</span></p>
-            <p>Kontroler: <select class="w30p" id="par-14" name="controller" value="none">
+            <p class=mbsp>input_fluid_temp: <input class=w30p id="par-10" name="input_fluid_temp" value="15"><span class=unit>°C</span></p>
+            <p class=mbsp>beta: <input class=w30p id="par-11" name="beta" value="0.035"><span class=unit></span></p>
+            <p class=mbsp>ticks_per_second: <input class=w30p id="par-12" name="ticks_per_second" value="1000"><span class=unit></span></p>
+            <p class=mbsp>sim_time: <input class=w30p id="par-13" name="sim_time" value="2"><span class=unit>s</span></p>
+            <p class=mbsp>Kontroler: <select class="w30p" id="par-14" name="controller" value="none">
                     <option value="none">none</option>
                     <option value="pid">PID</option>
                     <option value="fuzzy">Fuzzy</option>
@@ -63,21 +63,21 @@
     <div class="row rlform" id="pid_parameters" style="display:none;">
 
         <div class="col parameters-row">
-            <p>Input P: <input class=w30p id="par-i_p" name="input_p" value="5"><span class=unit></span></p>
-            <p>Input I: <input class=w30p id="par-i_i" name="input_i" value="1"><span class=unit></span></p>
-            <p>Input D: <input class=w30p id="par-i_d" name="input_d" value="0.01"><span class=unit></span></p>
+            <p class=mbsp>Input P: <input class=w30p id="par-i_p" name="input_p" value="5"><span class=unit></span></p>
+            <p class=mbsp>Input I: <input class=w30p id="par-i_i" name="input_i" value="1"><span class=unit></span></p>
+            <p class=mbsp>Input D: <input class=w30p id="par-i_d" name="input_d" value="0.01"><span class=unit></span></p>
         </div>
 
         <div class="col parameters-row">
-            <p>Output P: <input class=w30p id="par-o_p" name="output_p" value="0.3"><span class=unit></span></p>
-            <p>Output I: <input class=w30p id="par-o_i" name="output_i" value="0.5"><span class=unit></span></p>
-            <p>Output D: <input class=w30p id="par-o_d" name="output_d" value="0.0001"><span class=unit></span></p>
+            <p class=mbsp>Output P: <input class=w30p id="par-o_p" name="output_p" value="0.3"><span class=unit></span></p>
+            <p class=mbsp>Output I: <input class=w30p id="par-o_i" name="output_i" value="0.5"><span class=unit></span></p>
+            <p class=mbsp>Output D: <input class=w30p id="par-o_d" name="output_d" value="0.0001"><span class=unit></span></p>
         </div>
 
         <div class="col parameters-row">
-            <p>Temp P: <input class=w30p id="par-t_p" name="temp_p" value="-5"><span class=unit></span></p>
-            <p>Temp I: <input class=w30p id="par-t_i" name="temp_i" value="-0.4"><span class=unit></span></p>
-            <p>Temp D: <input class=w30p id="par-t_d" name="temp_d" value="-0.01"><span class=unit></span></p>
+            <p class=mbsp>Temp P: <input class=w30p id="par-t_p" name="temp_p" value="-5"><span class=unit></span></p>
+            <p class=mbsp>Temp I: <input class=w30p id="par-t_i" name="temp_i" value="-0.4"><span class=unit></span></p>
+            <p class=mbsp>Temp D: <input class=w30p id="par-t_d" name="temp_d" value="-0.01"><span class=unit></span></p>
         </div>
 
     </div>
