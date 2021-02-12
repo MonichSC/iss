@@ -8,11 +8,11 @@ def return_correct_value(min_value, actual_value, max_value):
 
 class PidController:
     def __init__(self, pid_parameters, ticks_per_second=1):
-        self.input_pid = PID(pid_parameters["input"]["p"], pid_parameters["input"]["i"], pid_parameters["input"]["d"])
-        self.input_pid.sample_time = 1 / ticks_per_second
-        self.output_pid = PID(pid_parameters["output"]["p"], pid_parameters["output"]["i"],
-                              pid_parameters["output"]["d"])
-        self.output_pid.sample_time = 1 / ticks_per_second
+#        self.input_pid = PID(pid_parameters["input"]["p"], pid_parameters["input"]["i"], pid_parameters["input"]["d"])
+#        self.input_pid.sample_time = 1 / ticks_per_second
+#        self.output_pid = PID(pid_parameters["output"]["p"], pid_parameters["output"]["i"],
+#                              pid_parameters["output"]["d"])
+#        self.output_pid.sample_time = 1 / ticks_per_second
         self.temperature_pid = PID(pid_parameters["temperature"]["p"], pid_parameters["temperature"]["i"],
                                    pid_parameters["temperature"]["d"])
         self.temperature_pid.sample_time = 1 / ticks_per_second
@@ -23,8 +23,8 @@ class PidController:
         level_error = sim_object.level[-1] - (sim_object.max_level - sim_object.min_level) / 2
         output_error = sim_object.target_temp * 0.9 - sim_object.temperature[-1]
 
-        sim_object.in_valve_status.append(return_correct_value(0, self.input_pid(level_error) / 10, 1))
-        sim_object.out_valve_status.append(return_correct_value(0, self.output_pid(output_error) / 10, 1))
+#        sim_object.in_valve_status.append(return_correct_value(0, self.input_pid(level_error) / 10, 1))
+#        sim_object.out_valve_status.append(return_correct_value(0, self.output_pid(output_error) / 10, 1))
         sim_object.heater_power.append(return_correct_value(0, self.temperature_pid(error) / 10, 1))
 
         # self.sum += error

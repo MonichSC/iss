@@ -71,21 +71,21 @@ function iss_go()
     {
         pidPAR = 
         {
-            "input": {
+/*            "input": {
                     "p": parseFloat(pid_parameters.querySelector("#par-i_p").value),
                     "i": parseFloat(pid_parameters.querySelector("#par-i_i").value), 
                     "d": parseFloat(pid_parameters.querySelector("#par-i_d").value)},
             "output":   {
                     "p": parseFloat(pid_parameters.querySelector("#par-o_p").value),
                     "i": parseFloat(pid_parameters.querySelector("#par-o_i").value), 
-                    "d": parseFloat(pid_parameters.querySelector("#par-o_d").value)},
+                    "d": parseFloat(pid_parameters.querySelector("#par-o_d").value)},*/
             "temperature": 
             {
                     "p": parseFloat(pid_parameters.querySelector("#par-t_i").value),
                     "i": parseFloat(pid_parameters.querySelector("#par-t_p").value), 
                     "d": parseFloat(pid_parameters.querySelector("#par-t_d").value)
             }
-        }
+        };
     }
 
     x.onreadystatechange = function (e) {
@@ -144,10 +144,11 @@ function iss_go()
 // --------------------------------------------------------------------------
 // change of controller
 // --------------------------------------------------------------------------
-function callback_change_controller(e){
-    if(e.target.value == "pid")
+function callback_change_controller(e)
+{
+    if (e.target.value == "pid")
     {
-        document.getElementById("pid_parameters").style.display = "flex";
+        document.getElementById("pid_parameters").style.display = "";
     }
     else
     {
@@ -248,7 +249,7 @@ window.addEventListener("DOMContentLoaded", (e)=>{
     document.querySelector("#remove_plot").addEventListener("click", remove_plot);
 
     // nasłuchiwanie na zdarzenie zmiany controlera
-    document.getElementById("par-14").addEventListener("change", callback_change_controller)
+    document.getElementById("par-16").addEventListener("change", callback_change_controller)
 })
 
 
