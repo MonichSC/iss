@@ -72,6 +72,8 @@ class Heated_container:
 
         # level control
 
+        new_level = self.level[-1]
+
         new_in_v_status = self.in_valve_status[-1]
         new_out_v_status = self.out_valve_status[-1]
 
