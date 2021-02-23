@@ -13,9 +13,9 @@ class Simulation:
         self.controller = controller
 
 
-    def run(self, sim_time, ticks_per_second=1):
+    def run(self, sim_time):
         print(f"Running simulation for {sim_time} seconds")
-        totalTicks = sim_time * ticks_per_second
+        totalTicks = sim_time
         breakpointFactor = totalTicks / 20
         for i in range(totalTicks):
             if i % breakpointFactor == 0:
@@ -24,24 +24,23 @@ class Simulation:
             self.sim_object.tick()
 
 
-def launch_simulation(start_level=0.2,
-                        min_level=0.1,
-                        max_level=1,
-                        area=0.5,
-                        start_temp=20,
-                        target_temp=40,
-                        max_temp_error=3,
-                        max_heater_power=3000,
-                        input_temp=15,
-                        max_input=0.001,
-#                        max_output=0.001,
+def launch_simulation(start_level,
+                        min_level,
+                        max_level,
+                        area,
+                        start_temp,
+                        target_temp,
+                        max_temp_error,
+                        heater_power,
+                        input_temp,
+                        max_input,
+                        max_output,
 #                        start_in_valve_status=1,
 #                        start_out_valve_status=0.1,
-                        beta=0.035,
-                        sim_time=600,
-#                        ticks_per_second=1,
-                        controller="none",
-                        pid_parameters=None):
+                        beta,
+                        sim_time,
+                        controller,
+                        pid_parameters):
 
     if pid_parameters is None:
         pid_parameters = []
@@ -53,14 +52,14 @@ def launch_simulation(start_level=0.2,
                                         start_temp,
                                         target_temp,
                                         max_temp_error,
-                                        max_heater_power,
+                                        heater_power,
                                         input_temp,
                                         max_input,
-#                                        max_output,
+                                        max_output,
 #                                        start_in_valve_status,
 #                                        start_out_valve_status,
                                         beta,
-                                        ticks_per_second=1)
+                                        0)      # heater_status
 
     if controller == "none":
         ctr = nctr.NullController()
@@ -82,14 +81,14 @@ def launch_simulation(start_level=0.2,
         else:
             print("recive_parameters")
         
-        ctr = pidctr.PidController(pid_parameters, 1, target_temp, input_temp)
+        ctr = pidctr.PidController(pid_parameters, target_temp, input_temp)
     elif controller == "fuzzy":
         ctr = fctr.FuzzyController(max_temp_error)
     else:
         raise Exception("No such controller found")
 
     sim = Simulation(sim_object, ctr)
-    sim.run(sim_time, 1)
+    sim.run(sim_time)
     return sim_object.get_data()
 
 

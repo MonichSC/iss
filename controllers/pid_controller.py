@@ -8,11 +8,10 @@ def return_correct_value(min_value, actual_value, max_value):
 
 
 class PidController:
-    def __init__(self, pid_parameters, ticks_per_second, target_temp, input_temp):
+    def __init__(self, pid_parameters, target_temp, input_temp):
 
         self.temperature_pid = PID(pid_parameters["temperature"]["p"], pid_parameters["temperature"]["i"],
                                    pid_parameters["temperature"]["d"], setpoint = target_temp)
-        self.ticks_per_second = ticks_per_second
         self.temperature_pid.output_limits = (0, 1) 
         self.temperature_pid.SetPoint = target_temp
         self.tick_counter = 0
@@ -30,4 +29,4 @@ class PidController:
 
         #print(sim_object.temperature[-1])
 
-        sim_object.heater_power.append(self.temperature_pid(sim_object.temperature[-1], 1/self.ticks_per_second))
+        sim_object.heater_power.append(self.temperature_pid(sim_object.temperature[-1], 1))
