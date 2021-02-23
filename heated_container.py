@@ -44,8 +44,24 @@ class Heated_container:
         self.out_valve_status = [0]                         # bieżące otwarcie zaworu wyjściowego (0..1)
         self.heater_status = [0]                            # bieżący status grzałki
 
+        self.h0 = heater_status
+        self.c1 = start_temp
+        self.h1 = heater_status
+        self.c2 = start_temp
+        self.h2 = heater_status
+        self.c3 = start_temp
+        self.h3 = heater_status
+        self.c4 = start_temp
+        self.h4 = heater_status
+        self.c5 = start_temp
+        self.h5 = heater_status
+        self.h6 = heater_status
+        self.h7 = heater_status
+        self.h8 = heater_status
+        self.h9 = heater_status
+
         self.current=0
-        self.max_current=30
+        self.max_current=60
 
 #        print("self.out_valve_status[-1]: " + str(self.out_valve_status[-1]) + " (konstruktor)")
 
@@ -56,7 +72,27 @@ class Heated_container:
 
         # level control
 
-        new_input = self.max_input * self.in_valve_status[-1]
+        new_in_v_status = self.in_valve_status[-1]
+        new_out_v_status = self.out_valve_status[-1]
+
+        if new_level <= self.min_level and self.out_valve_status[-1]==1:
+            print("Awaryjne wylaczenie odplywu")
+            new_out_v_status = 0
+        elif new_level < self.max_level and self.in_valve_status[-1]==0:
+            print("Wlaczenie doplywu")
+            new_in_v_status = 1
+        elif new_level >= self.max_level and self.in_valve_status[-1]==1:
+            print("Wylaczenie doplywu")
+            new_in_v_status = 0
+
+        self.in_valve_status.append(new_in_v_status)
+        self.out_valve_status.append(new_out_v_status)
+
+
+
+        # in/out
+
+        new_input = self.max_input * new_in_v_status
         self.input.append(new_input)
 
 #        print("new_input: " + str(new_input))
@@ -64,22 +100,13 @@ class Heated_container:
 
 #        print("self.out_valve_status[-1]: " + str(self.out_valve_status[-1]))
 
-        new_output = self.max_output * self.out_valve_status[-1]
+        new_output = self.max_output * new_out_v_status
         self.output.append(new_output)
 
 #        print("new_output: " + str(new_output))
 
 
         new_level = self.level[-1] + (new_input - new_output) / self.area
-
-        if new_level <= self.min_level and self.out_valve_status[-1]==1:
-            print("Awaryjne wylaczenie odplywu")
-            self.out_valve_status.append(0)
-#            new_level = self.min_level
-        elif new_level >= self.max_level and self.in_valve_status[-1]==1:
-            print("Wylaczenie doplywu")
-            self.in_valve_status.append(0)
-#            new_level = self.max_level
 
         self.level.append(new_level)
 
@@ -103,18 +130,37 @@ class Heated_container:
 
         heaterQ = self.heater_status[-1] * self.heater_power
 
-        # dT = Q / (mj * V * Cw * t)
+        # dT = Q / (Gw * V * Cw * t)
         #
         # Q  - energia
-        # mj - masa jednostkowa wody (ignorujemy zależność od temperatury)
+        # Gw - gęstość wody (ignorujemy zależność od temperatury)
         # V  - objętość
         # Cw - ciepło właściwe wody
         # t  - czas
+        #
+        # k  - wsp. przewodzenia ciepła dla wody = 0,6
+        # ki - wsp. inercyjny
 
-        new_temp += heaterQ / (980 * new_vol * 4190)
+        inertia = self.h9 * 0.2
+
+        new_temp += heaterQ / (998 * new_vol * 4182) + inertia
 
         if self.current == self.max_current:
             print("new_temp: " + str(new_temp))
+
+
+        # inercja
+
+        self.h0 = self.h1
+        self.h1 = self.h2
+        self.h2 = self.h3
+        self.h3 = self.h4
+        self.h4 = self.h5
+        self.h5 = self.h6
+        self.h6 = self.h7
+        self.h7 = self.h8
+        self.h8 = self.h9
+        self.h9 = self.heater_status[-1]
 
 
         # aktualizacja
