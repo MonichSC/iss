@@ -7,10 +7,13 @@ class PController:
 
         o = sim_object.get_data()
 
+        new_heater_status = o["heater_status"][-1]
+
         if o["temperature"][-1] < self.target_temp:
             if o["heater_status"][-1] == 0:
                 print("heating...")
-                sim_object.heater_status.append(1)
+                new_heater_status = 1
         elif o["temperature"][-1] >= self.target_temp:
-            sim_object.heater_status.append(0)
+            new_heater_status = 0
 
+        sim_object.heater_status.append(new_heater_status)

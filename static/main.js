@@ -48,7 +48,7 @@ function p(t)
 
 
 
-var lastParam=14;
+var lastParam=13;
 
 
 // --------------------------------------------------------------------------
@@ -136,9 +136,9 @@ function iss_go()
                             "max_output": parameters[10],
 //                            "start_in_valve_status": parameters[11],
 //                            "start_out_valve_status": parameters[12],
-                            "beta": parameters[11],
-                            "sim_time": parameters[12],
-                            "controller": parameters[13],
+//                            "beta": parameters[11],
+                            "sim_time": parameters[11],
+                            "controller": parameters[12],
                             "pid_parameters": pidPAR}));
 
     console.log("wyslano");

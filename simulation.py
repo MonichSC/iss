@@ -37,7 +37,7 @@ def launch_simulation(start_level,
                         max_output,
 #                        start_in_valve_status=1,
 #                        start_out_valve_status=0.1,
-                        beta,
+#                        beta,
                         sim_time,
                         controller,
                         pid_parameters):
@@ -58,7 +58,7 @@ def launch_simulation(start_level,
                                         max_output,
 #                                        start_in_valve_status,
 #                                        start_out_valve_status,
-                                        beta,
+#                                        beta,
                                         0)      # heater_status
 
     if controller == "none":

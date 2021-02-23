@@ -16,7 +16,7 @@ class Heated_container:
                     max_output,
 #                    start_in_valve_status,
 #                    start_out_valve_status,
-                    beta,
+#                    beta,
                     heater_status):
 
         # Simulation parameters
@@ -95,15 +95,37 @@ class Heated_container:
         if self.current == self.max_current:
             print("new_vol: " + str(new_vol))
 
+        # temp before heating
+
         new_temp = ((vol_before - new_output) * self.temperature[-1] + new_input * self.input_temp) / new_vol
+
+        # temp with heating
+
+        heaterQ = self.heater_status[-1] * self.heater_power
+
+        # dT = Q / (mj * V * Cw * t)
+        #
+        # Q  - energia
+        # mj - masa jednostkowa wody (ignorujemy zależność od temperatury)
+        # V  - objętość
+        # Cw - ciepło właściwe wody
+        # t  - czas
+
+        new_temp += heaterQ / (980 * new_vol * 4190)
 
         if self.current == self.max_current:
             print("new_temp: " + str(new_temp))
 
+
+        # aktualizacja
+
         self.temperature.append(new_temp)
 
         self.error.append(self.target_temp - self.temperature[-1])
-        
+
+
+        # reset licznika printow
+
         if self.current == self.max_current:
             self.current = 0
         else:
@@ -116,7 +138,7 @@ class Heated_container:
         output['level'] = self.level
         output['temperature'] = self.temperature
         output['error'] = self.error
-        output['heater_power'] = self.heater_power
+        output['heater_status'] = self.heater_status
         output['input'] = self.input
         output['output'] = self.output
         return output

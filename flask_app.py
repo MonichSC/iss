@@ -41,7 +41,7 @@ def iss_go():
                                                     float(content_dict['max_output']),
 #                                                    float(content_dict['start_in_valve_status']),
 #                                                    float(content_dict['start_out_valve_status']),
-                                                    float(content_dict['beta']),
+#                                                    float(content_dict['beta']),
                                                     int(content_dict['sim_time']),
                                                     content_dict['controller'],
                                                     content_dict["pid_parameters"])
