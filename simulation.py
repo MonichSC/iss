@@ -1,7 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import controllers.pid_controller as pctr
 import controllers.null_controller as nctr
+import controllers.p_controller as pctr
+import controllers.pid_controller as pidctr
 import controllers.fuzzy_controller as fctr
 import heated_container as hc
 
@@ -32,8 +33,8 @@ def launch_simulation(start_level=0.2,
                         max_temp_error=3,
                         max_heater_power=3000,
                         input_temp=15,
-                        max_input=0.01,
-#                        max_output=0.2,
+                        max_input=0.001,
+#                        max_output=0.001,
 #                        start_in_valve_status=1,
 #                        start_out_valve_status=0.1,
                         beta=0.035,
@@ -63,6 +64,8 @@ def launch_simulation(start_level=0.2,
 
     if controller == "none":
         ctr = nctr.NullController()
+    elif controller == "p":
+        ctr = pctr.PController(target_temp, input_temp)
     elif controller == "pid":
         if len(pid_parameters) == 0:
             pid_parameters = {
@@ -79,7 +82,7 @@ def launch_simulation(start_level=0.2,
         else:
             print("recive_parameters")
         
-        ctr = pctr.PidController(pid_parameters, 1, target_temp, input_temp)
+        ctr = pidctr.PidController(pid_parameters, 1, target_temp, input_temp)
     elif controller == "fuzzy":
         ctr = fctr.FuzzyController(max_temp_error)
     else:
