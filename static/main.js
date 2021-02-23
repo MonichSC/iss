@@ -46,6 +46,8 @@ function p(t)
     }
 }
 
+var lastParam=13;
+
 
 // --------------------------------------------------------------------------
 // Run
@@ -56,14 +58,14 @@ function iss_go()
 
     let parameters = new Array();
 
-    for (let step = 1; step <= 14; step++)
+    for (let step = 1; step <= lastParam; step++)
     {
         parameters.push(document.getElementById("par-"+step).value);
     }
 
     const pid_parameters = document.getElementById("pid_parameters");
 
-    let selected_controller = document.getElementById("par-14").value;
+    let selected_controller = document.getElementById("par-"+lastParam).value;
 
     console.log("selected_controller: " + selected_controller);
 
@@ -134,8 +136,8 @@ function iss_go()
 //                            "start_out_valve_status": parameters[12],
                             "beta": parameters[10],
                             "sim_time": parameters[11],
-                            "ticks_per_second": parameters[12],
-                            "controller": parameters[13],
+//                            "ticks_per_second": parameters[12],
+                            "controller": parameters[12],
                             "pid_parameters": pidPAR}));
 
     console.log("wyslano");
@@ -250,7 +252,7 @@ window.addEventListener("DOMContentLoaded", (e)=>{
     document.querySelector("#remove_plot").addEventListener("click", remove_plot);
 
     // nasłuchiwanie na zdarzenie zmiany controlera
-    document.getElementById("par-14").addEventListener("change", callback_change_controller)
+    document.getElementById("par-"+lastParam).addEventListener("change", callback_change_controller)
 })
 
 

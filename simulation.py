@@ -12,7 +12,7 @@ class Simulation:
         self.controller = controller
 
 
-    def run(self, sim_time, ticks_per_second):
+    def run(self, sim_time, ticks_per_second=1):
         print(f"Running simulation for {sim_time} seconds")
         totalTicks = sim_time * ticks_per_second
         breakpointFactor = totalTicks / 20
@@ -59,7 +59,7 @@ def launch_simulation(start_level=0.2,
 #                                        start_in_valve_status,
 #                                        start_out_valve_status,
                                         beta,
-                                        ticks_per_second)
+                                        ticks_per_second=1)
 
     if controller == "none":
         ctr = nctr.NullController()
