@@ -44,24 +44,10 @@ class Heated_container:
         self.out_valve_status = [0]                         # bieżące otwarcie zaworu wyjściowego (0..1)
         self.heater_status = [0]                            # bieżący status grzałki
 
-        self.h0 = heater_status
-        self.c1 = start_temp
-        self.h1 = heater_status
-        self.c2 = start_temp
-        self.h2 = heater_status
-        self.c3 = start_temp
-        self.h3 = heater_status
-        self.c4 = start_temp
-        self.h4 = heater_status
-        self.c5 = start_temp
-        self.h5 = heater_status
-        self.h6 = heater_status
-        self.h7 = heater_status
-        self.h8 = heater_status
-        self.h9 = heater_status
-
         self.current=0
         self.max_current=60
+        
+        self.elapsed=0
 
 #        print("self.out_valve_status[-1]: " + str(self.out_valve_status[-1]) + " (konstruktor)")
 
@@ -143,26 +129,10 @@ class Heated_container:
         # k  - wsp. przewodzenia ciepła dla wody = 0,6
         # ki - wsp. inercyjny
 
-        inertia = self.h9 * 0.2
-
-        new_temp += heaterQ / (998 * new_vol * 4182) + inertia
+        new_temp += heaterQ / (998 * new_vol * 4182)
 
         if self.current == self.max_current:
             print("new_temp: " + str(new_temp))
-
-
-        # inercja
-
-        self.h0 = self.h1
-        self.h1 = self.h2
-        self.h2 = self.h3
-        self.h3 = self.h4
-        self.h4 = self.h5
-        self.h5 = self.h6
-        self.h6 = self.h7
-        self.h7 = self.h8
-        self.h8 = self.h9
-        self.h9 = self.heater_status[-1]
 
 
         # aktualizacja
@@ -178,6 +148,8 @@ class Heated_container:
             self.current = 0
         else:
             self.current += 1
+
+        self.elapsed += 1
 
 
 
