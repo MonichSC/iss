@@ -67,14 +67,14 @@ class Heated_container:
         elif new_level >= self.max_level and self.in_valve_status[-1]==1:
             print("Wylaczenie doplywu")
             new_in_v_status = 0
-        else:
+#        else:
             # ------------------------------
             # otwarcie kranu na 100 sekund:
             
-            if self.cnt == 100:
-                new_out_v_status = 1
-            elif self.cnt == 200:
-                new_out_v_status = 0
+#            if self.cnt == 1000 or self.cnt == 3000:
+#                new_out_v_status = 1
+#            elif self.cnt == 1500 or self.cnt == 3500:
+#                new_out_v_status = 0
 
             # lub losowe:
 

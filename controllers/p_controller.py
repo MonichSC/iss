@@ -12,11 +12,11 @@ class PController:
         new_heater_status = od["heater_status"][-1]
         new_heater_power = od["heater_power"][-1]
 
-        if od["temperature"][-1] < self.target_temp and od["heater_status"][-1] == 0:
+        if od["temperature"][-1] < self.target_temp-1 and od["heater_status"][-1] == 0:
             print("heater on")
             new_heater_status = 1
             new_heater_power = self.max_heater_power
-        elif od["temperature"][-1] >= self.target_temp and od["heater_status"][-1] == 1:
+        elif od["temperature"][-1] >= self.target_temp+1 and od["heater_status"][-1] == 1:
             print("heater off")
             new_heater_status = 0
             new_heater_power = 0

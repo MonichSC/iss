@@ -17,7 +17,7 @@ class PidController:
 
     def tick(self, sim_object):
 
-        new_power_factor = self.pid(sim_object.temperature[-1])
+        new_power_factor = self.pid(sim_object.temperature[-1], 1)
 
         sim_object.heater_status.append(1)    # always on
         sim_object.heater_power.append(new_power_factor * self.max_heater_power)
