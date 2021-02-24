@@ -40,7 +40,7 @@
             <p class=mbsp>Temp. początkowa: <input class=w30p id="par-5" name="start_temp" value="20"><span class=unit>°C</span></p>
             <p class=mbsp>Temp. docelowa: <input class=w30p id="par-6" name="target_temp" value="40"><span class=unit>°C</span></p>
             <p class=mbsp>Maks. odchył temp.: <input class=w30p id="par-7" name="max_temp_error" value="3"><span class=unit>°C</span></p>
-            <p class=mbsp>Moc grzałki: <input class=w30p id="par-8" name="heater_power" value="3000"><span class=unit>W</span></p>
+            <p class=mbsp>Maks. moc grzałki: <input class=w30p id="par-8" name="max_heater_power" value="3000"><span class=unit>W</span></p>
             <p class=mbsp>Temp. wejściowa: <input class=w30p id="par-9" name="input_temp" value="15"><span class=unit>°C</span></p>
         </div>
 
@@ -54,7 +54,7 @@
             <!--p class=mbsp>Częstotliwość: <input class=w30p id="par-13" name="ticks_per_second" value="1"><span class=unit></span></p-->
             <p class=mbsp>Kontroler: <select class="w30p" id="par-13" name="controller" value="none">
                     <option value="none">none</option>
-                    <option value="p">P</option>
+                    <option value="p">Termostat</option>
                     <option value="pid">PID</option>
                     <option value="fuzzy">Fuzzy</option>
                   </select><span class=unit></span></p>
@@ -109,6 +109,7 @@
                         <option value="input">Input</option>
                         <option value="output">Output</option>
                         <option value="heater_status">Heater Status</option>
+                        <option value="heater_power">Heater Power</option>
                         <!--option value="input_valve">input_valve</option>
                         <option value="output_valve">output_valve</option-->
                     </select>

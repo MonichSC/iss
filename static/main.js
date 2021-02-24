@@ -130,7 +130,7 @@ function iss_go()
                             "start_temp": parameters[4],
                             "target_temp": parameters[5],
                             "max_temp_error": parameters[6],
-                            "heater_power": parameters[7],
+                            "max_heater_power": parameters[7],
                             "input_temp": parameters[8],
                             "max_input": parameters[9],
                             "max_output": parameters[10],

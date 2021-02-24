@@ -10,7 +10,7 @@ class Heated_container:
                     start_temp,
                     target_temp,
                     max_temp_error,
-                    heater_power,
+                    max_heater_power,
                     input_temp,
                     max_input,
                     max_output,
@@ -26,7 +26,7 @@ class Heated_container:
         self.area = area                            # powierzchnia zbiornika
         self.target_temp = target_temp              # temp. docelowa
         self.max_temp_error = max_temp_error        # tolerancja
-        self.heater_power = heater_power            # moc grzałki
+        self.max_heater_power = max_heater_power    # maks. moc grzałki
         self.max_input = max_input                  # przepustowość zaworu wejściowego
         self.max_output = max_output                # przepustowość zaworu wyjściowego
         self.input_temp = input_temp                # temp. cieczy wpływającej
@@ -42,6 +42,7 @@ class Heated_container:
         self.output = [0]                                   # ilość cieczy wypływającej
         self.in_valve_status = [1]                          # bieżące otwarcie zaworu wejściowego (0..1)
         self.out_valve_status = [0]                         # bieżące otwarcie zaworu wyjściowego (0..1)
+        self.heater_power = [0]                             # bieżąca moc grzałki
         self.heater_status = [0]                            # bieżący status grzałki
 
         self.current=0
@@ -116,7 +117,7 @@ class Heated_container:
 
         # temp with heating
 
-        heaterQ = self.heater_status[-1] * self.heater_power
+        heaterQ = self.heater_status[-1] * self.heater_power[-1]
 
         # dT = Q / (Gw * V * Cw * t)
         #
@@ -159,6 +160,7 @@ class Heated_container:
         output['temperature'] = self.temperature
         output['error'] = self.error
         output['heater_status'] = self.heater_status
+        output['heater_power'] = self.heater_power
         output['input'] = self.input
         output['output'] = self.output
         return output

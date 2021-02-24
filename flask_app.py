@@ -35,7 +35,7 @@ def iss_go():
                                                     int(content_dict['start_temp']),
                                                     int(content_dict['target_temp']),
                                                     int(content_dict['max_temp_error']),
-                                                    int(content_dict['heater_power']),
+                                                    int(content_dict['max_heater_power']),
                                                     int(content_dict['input_temp']),
                                                     float(content_dict['max_input']),
                                                     float(content_dict['max_output']),
