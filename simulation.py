@@ -24,6 +24,7 @@ class Simulation:
             self.sim_object.tick()
 
 
+
 def launch_simulation(start_level,
                         min_level,
                         max_level,
@@ -83,13 +84,14 @@ def launch_simulation(start_level,
         
         ctr = pidctr.PidController(pid_parameters, target_temp, input_temp, max_heater_power)
     elif controller == "fuzzy":
-        ctr = fctr.FuzzyController(max_temp_error)
+        ctr = fctr.FuzzyController(max_temp_error, max_heater_power)
     else:
         raise Exception("No such controller found")
 
     sim = Simulation(sim_object, ctr)
     sim.run(sim_time)
     return sim_object.get_data()
+
 
 
 def make_plot(raw_data, name, id):

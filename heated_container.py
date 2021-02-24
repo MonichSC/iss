@@ -35,22 +35,24 @@ class Heated_container:
 
         # Simulation data
 
-        self.level = [start_level]                          # bieżący poziom cieczy
-        self.temperature = [start_temp]                     # bieżąca temp.
-        self.error = [target_temp - start_temp]             # bieżący odchył
-        self.input = [0]                                    # ilość cieczy wpływającej
-        self.output = [0]                                   # ilość cieczy wypływającej
-        self.in_valve_status = [1]                          # bieżące otwarcie zaworu wejściowego (0..1)
-        self.out_valve_status = [0]                         # bieżące otwarcie zaworu wyjściowego (0..1)
-        self.heater_power = [0]                             # bieżąca moc grzałki
-        self.heater_status = [0]                            # bieżący status grzałki
+        self.level = [start_level]                  # bieżący poziom cieczy
+        self.temperature = [start_temp]             # bieżąca temp.
+        self.error = [target_temp - start_temp]     # bieżący odchył
+        self.input = [0]                            # ilość cieczy wpływającej
+        self.output = [0]                           # ilość cieczy wypływającej
+        self.in_valve_status = [1]                  # bieżące otwarcie zaworu wejściowego (0..1)
+        self.out_valve_status = [0]                 # bieżące otwarcie zaworu wyjściowego (0..1)
+        self.heater_status = [0]                    # bieżący status grzałki
+        self.heater_power = [0]                     # bieżąca moc grzałki
 
-        self.current=0
+        self.cnt = 0                                # licznik całej symulacji        
+        self.current=0                              # licznik resetowany co max_current
         self.max_current=60
         
         self.elapsed=0
 
 #        print("self.out_valve_status[-1]: " + str(self.out_valve_status[-1]) + " (konstruktor)")
+
 
 
     def tick(self):
@@ -73,6 +75,23 @@ class Heated_container:
         elif new_level >= self.max_level and self.in_valve_status[-1]==1:
             print("Wylaczenie doplywu")
             new_in_v_status = 0
+        else:
+            # ------------------------------
+            # otwarcie kranu na 100 sekund:
+            
+            if self.cnt == 200:
+                new_out_v_status = 1
+            elif self.cnt == 300:
+                new_out_v_status = 0
+
+            # lub losowe:
+
+    #        if self.current == 0:
+    #            if random.random() <= 0.0005:
+    #                new_out_v_status = 1
+    #            else:
+    #                new_out_v_status = 0
+
 
         self.in_valve_status.append(new_in_v_status)
         self.out_valve_status.append(new_out_v_status)
@@ -143,6 +162,11 @@ class Heated_container:
         self.error.append(self.target_temp - self.temperature[-1])
 
 
+        # liczniki
+
+        self.cnt += 1
+        self.elapsed += 1
+
         # reset licznika printow
 
         if self.current == self.max_current:
@@ -150,7 +174,7 @@ class Heated_container:
         else:
             self.current += 1
 
-        self.elapsed += 1
+            
 
 
 

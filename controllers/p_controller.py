@@ -3,7 +3,6 @@ class PController:
         self.target_temp = target_temp
         self.input_temp = input_temp
         self.max_heater_power = max_heater_power
-        self.cnt = 0
 
 
 
@@ -14,21 +13,15 @@ class PController:
         new_heater_status = od["heater_status"][-1]
         new_heater_power = od["heater_power"][-1]
 
-        if od["temperature"][-1] < self.target_temp:
-            if od["heater_status"][-1] == 0:
-                print("heating...")
-                new_heater_status = 1
-                new_heater_power = self.max_heater_power
+        if od["temperature"][-1] < self.target_temp and od["heater_status"][-1] == 0:
+            print("heater on")
+            new_heater_status = 1
+            new_heater_power = self.max_heater_power
         elif od["temperature"][-1] >= self.target_temp:
+            print("heater off")
             new_heater_status = 0
             new_heater_power = 0
 
         sim_object.heater_status.append(new_heater_status)
         sim_object.heater_power.append(new_heater_power)
-        
-        self.cnt += 1
-        
-        if self.cnt == 100:
-            sim_object.out_valve_status.append(1)
-        elif self.cnt == 200:
-            sim_object.out_valve_status.append(0)
+
