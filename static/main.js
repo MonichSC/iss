@@ -65,7 +65,7 @@ function iss_go()
         parameters.push(document.getElementById("par-"+step).value);
     }
 
-    const pid_parameters = document.getElementById("pid_parameters");
+    const pid_params = document.getElementById("pid_params");
 
     let selected_controller = document.getElementById("par-"+lastParam).value;
 
@@ -76,18 +76,18 @@ function iss_go()
         pidPAR = 
         {
 /*            "input": {
-                    "p": parseFloat(pid_parameters.querySelector("#par-i_p").value),
-                    "i": parseFloat(pid_parameters.querySelector("#par-i_i").value), 
-                    "d": parseFloat(pid_parameters.querySelector("#par-i_d").value)},
+                    "p": parseFloat(pid_params.querySelector("#par-i_p").value),
+                    "i": parseFloat(pid_params.querySelector("#par-i_i").value), 
+                    "d": parseFloat(pid_params.querySelector("#par-i_d").value)},
             "output":   {
-                    "p": parseFloat(pid_parameters.querySelector("#par-o_p").value),
-                    "i": parseFloat(pid_parameters.querySelector("#par-o_i").value), 
-                    "d": parseFloat(pid_parameters.querySelector("#par-o_d").value)},*/
+                    "p": parseFloat(pid_params.querySelector("#par-o_p").value),
+                    "i": parseFloat(pid_params.querySelector("#par-o_i").value), 
+                    "d": parseFloat(pid_params.querySelector("#par-o_d").value)},*/
             "temperature": 
             {
-                    "p": parseFloat(pid_parameters.querySelector("#par-t_i").value),
-                    "i": parseFloat(pid_parameters.querySelector("#par-t_p").value), 
-                    "d": parseFloat(pid_parameters.querySelector("#par-t_d").value)
+                    "p": parseFloat(pid_params.querySelector("#par-t_i").value),
+                    "i": parseFloat(pid_params.querySelector("#par-t_p").value), 
+                    "d": parseFloat(pid_params.querySelector("#par-t_d").value)
             }
         };
     }
@@ -139,7 +139,7 @@ function iss_go()
 //                            "beta": parameters[11],
                             "sim_time": parameters[11],
                             "controller": parameters[12],
-                            "pid_parameters": pidPAR}));
+                            "pid_params": pidPAR}));
 
     console.log("wyslano");
 }
@@ -152,11 +152,11 @@ function callback_change_controller(e)
 {
     if (e.target.value == "pid")
     {
-        document.getElementById("pid_parameters").style.display = "";
+        document.getElementById("pid_params").style.display = "";
     }
     else
     {
-        document.getElementById("pid_parameters").style.display = "none";
+        document.getElementById("pid_params").style.display = "none";
     }
 }
 

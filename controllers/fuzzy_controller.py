@@ -1,9 +1,10 @@
 import random
 
 class FuzzyController:
-    def __init__(self, max_temp_error, max_heater_power):
+    def __init__(self, max_temp_error, target_temp, max_heater_power):
 
         self.max_temp_error = max_temp_error
+        self.target_temp = target_temp
         self.max_heater_power = max_heater_power
 
 
@@ -12,9 +13,9 @@ class FuzzyController:
 
         reasons_raw = [
             # Reason 0 - temperature is below target
-            (sim_object.target_temp - sim_object.temperature[-1]) / 100,
+            (self.target_temp - sim_object.temperature[-1]) / 100,
             # Reason 1 - temperature is above target
-            (sim_object.temperature[-1] - sim_object.target_temp) / 100,
+            (sim_object.temperature[-1] - self.target_temp) / 100,
             # Reason 2 - water is not at max level
             sim_object.level[-1] / sim_object.max_level,
             # Reason 3 - water is below minimum

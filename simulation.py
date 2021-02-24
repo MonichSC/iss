@@ -38,10 +38,10 @@ def launch_simulation(start_level,
                         max_output,
                         sim_time,
                         controller,
-                        pid_parameters):
+                        pid_params):
 
-    if pid_parameters is None:
-        pid_parameters = []
+    if pid_params is None:
+        pid_params = []
 
     sim_object = hc.Heated_container(start_level,
                                         min_level,
@@ -60,8 +60,8 @@ def launch_simulation(start_level,
     elif controller == "p":
         ctr = pctr.PController(target_temp, max_heater_power)
     elif controller == "pid":
-        if len(pid_parameters) == 0:
-            pid_parameters = {
+        if len(pid_params) == 0:
+            pid_params = {
 #                "input": {
 #                    "p": 5, "i": 1, "d": 0.01
 #                },
@@ -75,9 +75,9 @@ def launch_simulation(start_level,
         else:
             print("recive_parameters")
         
-        ctr = pidctr.PidController(pid_parameters, target_temp, max_heater_power)
+        ctr = pidctr.PidController(pid_params, target_temp, max_heater_power)
     elif controller == "fuzzy":
-        ctr = fctr.FuzzyController(max_temp_error, max_heater_power)
+        ctr = fctr.FuzzyController(max_temp_error, target_temp, max_heater_power)
     else:
         raise Exception("No such controller found")
 

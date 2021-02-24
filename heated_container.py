@@ -71,9 +71,9 @@ class Heated_container:
             # ------------------------------
             # otwarcie kranu na 100 sekund:
             
-            if self.cnt == 200:
+            if self.cnt == 100:
                 new_out_v_status = 1
-            elif self.cnt == 300:
+            elif self.cnt == 200:
                 new_out_v_status = 0
 
             # lub losowe:

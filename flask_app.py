@@ -44,7 +44,7 @@ def iss_go():
 #                                                    float(content_dict['beta']),
                                                     int(content_dict['sim_time']),
                                                     content_dict['controller'],
-                                                    content_dict["pid_parameters"])
+                                                    content_dict["pid_params"])
 
             
             
