@@ -58,7 +58,7 @@ def launch_simulation(start_level,
     if controller == "none":
         ctr = nctr.NullController()
     elif controller == "p":
-        ctr = pctr.PController(target_temp, input_temp, max_heater_power)
+        ctr = pctr.PController(target_temp, max_heater_power)
     elif controller == "pid":
         if len(pid_parameters) == 0:
             pid_parameters = {
@@ -75,7 +75,7 @@ def launch_simulation(start_level,
         else:
             print("recive_parameters")
         
-        ctr = pidctr.PidController(pid_parameters, target_temp, input_temp, max_heater_power)
+        ctr = pidctr.PidController(pid_parameters, target_temp, max_heater_power)
     elif controller == "fuzzy":
         ctr = fctr.FuzzyController(max_temp_error, max_heater_power)
     else:

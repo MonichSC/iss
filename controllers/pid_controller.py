@@ -3,12 +3,8 @@ import random
 from simple_pid import PID
 
 
-def return_correct_value(min_value, actual_value, max_value):
-    return min(max(actual_value, min_value), max_value)
-
-
 class PidController:
-    def __init__(self, pid_params, target_temp, input_temp, max_heater_power):
+    def __init__(self, pid_params, target_temp, max_heater_power):
 
         self.max_heater_power = max_heater_power
 
