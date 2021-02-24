@@ -12,10 +12,10 @@ class PidController:
 
         self.max_heater_power = max_heater_power
 
-        self.pid = PID(pid_params["temperature"]["p"], pid_params["temperature"]["i"], pid_params["temperature"]["d"], setpoint = target_temp)
+        self.pid = PID(pid_params["temperature"]["p"], pid_params["temperature"]["i"], pid_params["temperature"]["d"])
         self.pid.setpoint = target_temp
         self.pid.sample_time = 1
-        self.pid.output_limits = (0, 1) 
+        self.pid.output_limits = (0, 1)
 
 
 

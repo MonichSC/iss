@@ -36,9 +36,6 @@ def launch_simulation(start_level,
                         input_temp,
                         max_input,
                         max_output,
-#                        start_in_valve_status=1,
-#                        start_out_valve_status=0.1,
-#                        beta,
                         sim_time,
                         controller,
                         pid_parameters):
@@ -56,11 +53,7 @@ def launch_simulation(start_level,
                                         max_heater_power,
                                         input_temp,
                                         max_input,
-                                        max_output,
-#                                        start_in_valve_status,
-#                                        start_out_valve_status,
-#                                        beta,
-                                        0)      # heater_status
+                                        max_output)
 
     if controller == "none":
         ctr = nctr.NullController()
@@ -109,19 +102,3 @@ def make_plot(raw_data, name, id):
     fig.savefig('static/{0}.png'.format(name))
     print(f"{id}/8")
 
-
-#if __name__ == '__main__':
-#    print("START")
-#    raw_data = launch_simulation(controller='fuzzy')
-#    print("100.0%, generating diagrams")
-
-#    make_plot(raw_data, "level", 1)
-#    make_plot(raw_data, "temperature", 2)
-#    make_plot(raw_data, "error", 3)
-#    make_plot(raw_data, "input", 4)
-#    make_plot(raw_data, "output", 5)
-#    make_plot(raw_data, "heater_power", 6)
-#    make_plot(raw_data, "input_valve", 7)
-#    make_plot(raw_data, "output_valve", 8)
-
-#    print("Finished")

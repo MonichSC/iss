@@ -2,7 +2,9 @@ import random
 
 class FuzzyController:
     def __init__(self, max_temp_error, max_heater_power):
+
         self.max_temp_error = max_temp_error
+        self.max_heater_power = max_heater_power
 
 
 
@@ -33,7 +35,7 @@ class FuzzyController:
         # Rule 1 - IF temperature is above target (R1) => heater power goes down
         change += -reasons[1]*15
 
-        new_power = min(max(sim_object.heater_power[-1] + change / 100, 0), 1)
+        new_power_factor = min(max(sim_object.heater_power[-1] + change / 100, 0), 1)
 
         sim_object.heater_status.append(1)    # always on
-        sim_object.heater_power.append(new_power)
+        sim_object.heater_power.append(new_power_factor * self.max_heater_power)

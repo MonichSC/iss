@@ -13,11 +13,7 @@ class Heated_container:
                     max_heater_power,
                     input_temp,
                     max_input,
-                    max_output,
-#                    start_in_valve_status,
-#                    start_out_valve_status,
-#                    beta,
-                    heater_status):
+                    max_output):
 
         # Simulation parameters
 
@@ -30,8 +26,6 @@ class Heated_container:
         self.max_input = max_input                  # przepustowość zaworu wejściowego
         self.max_output = max_output                # przepustowość zaworu wyjściowego
         self.input_temp = input_temp                # temp. cieczy wpływającej
-#        self.beta = beta                            # beta
-        self.heater_status = heater_status          # grzałka włączona?
 
         # Simulation data
 
@@ -50,8 +44,6 @@ class Heated_container:
         self.max_current=60
         
         self.elapsed=0
-
-#        print("self.out_valve_status[-1]: " + str(self.out_valve_status[-1]) + " (konstruktor)")
 
 
 
