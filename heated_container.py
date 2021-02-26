@@ -41,7 +41,7 @@ class Heated_container:
 
         self.cnt = 0                                # licznik całej symulacji        
         self.current=0                              # licznik resetowany co max_current
-        self.max_current=60
+        self.max_current=600
         
         self.elapsed=0
 
