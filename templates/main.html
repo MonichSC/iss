@@ -21,134 +21,20 @@
                 <h1 class="text-light"><object data="img/pcb_design.svg" class="logo vab" type="image/svg+xml"></object>ISS Lab</h1>
             </div>
         </div>
-    </div>
-
-    <!-- PARAMETRY OGÓLNE -->
-
-    <h2>Parametry symulacji</h2>
-
-    <div class="row rlform">
-    
-        <div class="col parameters-row">
-            <p class=mbsp>Poziom początkowy: <input class=w30p id="par-1" name="start_level" value="0.2" autofocus><span class=unit>m</span></p>
-            <p class=mbsp>Poziom min.: <input class=w30p id="par-2" name="min_level" value="0.1"><span class=unit>m</span></p>
-            <p class=mbsp>Poziom maks.: <input class=w30p id="par-3" name="max_level" value="1"><span class=unit>m</span></p>
-            <p class=mbsp>Powierzchnia: <input class=w30p id="par-4" name="area" value="0.125"><span class=unit>m²</span></p>
-        </div>
-
-        <div class="col parameters-row">
-            <p class=mbsp>Temp. początkowa: <input class=w30p id="par-5" name="start_temp" value="20"><span class=unit>°C</span></p>
-            <p class=mbsp>Temp. docelowa: <input class=w30p id="par-6" name="target_temp" value="40"><span class=unit>°C</span></p>
-            <!--p class=mbsp>Maks. odchył temp.: <input class=w30p id="par-7" name="max_temp_error" value="3"><span class=unit>°C</span></p-->
-            <p class=mbsp>Maks. moc grzałki: <input class=w30p id="par-7" name="max_heater_power" value="2000"><span class=unit>W</span></p>
-            <p class=mbsp>Temp. wejściowa: <input class=w30p id="par-8" name="input_temp" value="15"><span class=unit>°C</span></p>
-        </div>
-
-        <div class="col parameters-row">
-            <p class=mbsp>Dopływ: <input class=w30p id="par-9" name="max_input" value="0.00001"><span class=unit>m³/s</span></p>
-            <p class=mbsp>Odpływ: <input class=w30p id="par-10" name="max_output" value="0"><span class=unit>m³/s</span></p>
-            <!--p class=mbsp style="display:none;">Start in valve: <input class=w30p id="par-12" name="start_in_valve_status" value="1"><span class=unit></span></p>
-            <p class=mbsp style="display:none;">Start out valve: <input class=w30p id="par-13" name="start_out_valve_status" value="0.1"><span class=unit></span></p>
-            <p class=mbsp>Beta: <input class=w30p id="par-12" name="beta" value="0.035"><span class=unit></span></p-->
-            <p class=mbsp>Czas: <input class=w30p id="par-11" name="sim_time" value="6000"><span class=unit>s</span></p>
-            <!--p class=mbsp>Częstotliwość: <input class=w30p id="par-13" name="ticks_per_second" value="1"><span class=unit></span></p-->
-            <p class=mbsp>Kontroler: <select class="w30p" id="par-12" name="controller" value="none">
-                    <option value="none">Brak</option>
-                    <option value="p">Termostat</option>
-                    <option value="pid">PID</option>
-                    <option value="fuzzy">Rozmyty</option>
-                  </select><span class=unit></span></p>
-        </div>
-
-    </div>
-
-    <!-- PARAMETRY PID -->
-
-    <div class="row rlform" id="pid_params" style="display:none;">
-
-        <div class="col parameters-row">
-            <!--p class=mbsp>Input P: <input class=w30p id="par-i_p" name="input_p" value="5"><span class=unit></span></p>
-            <p class=mbsp>Input I: <input class=w30p id="par-i_i" name="input_i" value="1"><span class=unit></span></p>
-            <p class=mbsp>Input D: <input class=w30p id="par-i_d" name="input_d" value="0.01"><span class=unit></span></p-->
-        </div>
-
-        <div class="col parameters-row">
-            <!--p class=mbsp>Output P: <input class=w30p id="par-o_p" name="output_p" value="0.3"><span class=unit></span></p>
-            <p class=mbsp>Output I: <input class=w30p id="par-o_i" name="output_i" value="0.5"><span class=unit></span></p>
-            <p class=mbsp>Output D: <input class=w30p id="par-o_d" name="output_d" value="0.0001"><span class=unit></span></p-->
-        </div>
-
-        <div class="col parameters-row">
-            <p class=mbsp>P: <input class=w30p id="par-t_p" name="temp_p" value="1"><span class=unit></span></p>
-            <p class=mbsp>I: <input class=w30p id="par-t_i" name="temp_i" value="0"><span class=unit></span></p>
-            <p class=mbsp>D: <input class=w30p id="par-t_d" name="temp_d" value="0"><span class=unit></span></p>
-        </div>
-
-    </div>
-
-    <!-- URUCHOM -->
-
-    <div class="row rlform">
-        <p><button class="btn btn-info" id="sim_start">Start symulacji</button> &nbsp; <span id="sim_ready_msg" style="color:green;display:none;">Symulacja gotowa</span></p>
-    </div>
-
-    </div>
-
-    <!-- WYKRES -->
-
-    <h2>Wykres</h2>
-
-    <div class="container m30" id="plot" style="display:none;">
-
-        <div id="plot-parameters-box">
-
-            <div class="row mbpp" id="plot-parameters-1">
-                <span>Wartość: <select class=shorter id="plot_values" name="plot_values" value="none">
-                        <option value="level">Level</option>
-                        <option value="temperature">Temperature</option>
-                        <option value="input">Input</option>
-                        <option value="output">Output</option>
-                        <option value="heater_power">Heater Power</option>
-                        <!--option value="input_valve">input_valve</option>
-                        <option value="output_valve">output_valve</option-->
-                    </select>
-                </span>
-                &nbsp; &nbsp;
-                <span>Kolor: <select class=shorter id="plot_colors" name="plot_colors" value="tab:blue">
-                        <option style="background-color: dodgerblue;" value="tab:blue">Blue</option>
-                        <option style="background-color: orange;" value="tab:orange">Orange</option>
-                        <option style="background-color: green;" value="tab:green">Green</option>
-                        <option style="background-color: firebrick;" value="tab:red">Red</option>
-                        <option style="background-color: darkorchid;" value="tab:purple">Purple</option>
-                        <option style="background-color: sienna;" value="tab:brown">Brown</option>
-                        <option style="background-color: fuchsia;" value="tab:pink">Pink</option>
-                        <option style="background-color: gray;" value="tab:gray">Gray</option>
-                        <option style="background-color: olive;" value="tab:olive">Olive</option>
-                        <option style="background-color: teal;" value="tab:cyan">Cyan</option>
-                    </select>
-                </span>
+        <div class="row m4px">
+            <div class="col text-light larger" style="margin-left:22px;">
+                <b>Home</b> &nbsp;&nbsp; 
+                <a class=text-light href="/symulacja">Symulacja</a>
             </div>
-
         </div>
-
-        <p>&nbsp;</p>
-        <p><button class="btn btn-outline-info" id="add_plot">Dodaj wartość do wykresu</button></p>
-        <p><button class="btn btn-outline-info" id="remove_plot">Usuń wartość z wykresu</button></p>
-        <p><button class="btn btn-info" id="plot_start">Pokaż wykres</button></p>
-
     </div>
+
+    <h2>Model obiektu</h2>
 
     <div class="chart-box">
-        <div id="chart_par"style="display:none;">
-            <img id="plot-img" name="chart" src="{{url_for('static', filename='plot.png')}}" />
-        </div>
-
+        <img src="img/schemat.png" width=706>
     </div>
 
-
-
-    <script type="text/javascript"
-    src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
 
 </html>

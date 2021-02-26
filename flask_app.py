@@ -15,9 +15,13 @@ raw_data=[]
 
 
 @app.route('/')
-def hello():
-    # name = request.args.get("name", "World")
+def main():
     return render_template("main.html")
+
+
+@app.route('/symulacja')
+def symulacja():
+    return render_template("symulacja.html")
 
 
 @app.route('/iss_go', methods=['GET', 'POST'])
