@@ -9,7 +9,7 @@ class Heated_container:
                     area,
                     start_temp,
                     target_temp,
-                    max_temp_error,
+#                    max_temp_error,
                     max_heater_power,
                     input_temp,
                     max_input,
@@ -21,7 +21,7 @@ class Heated_container:
         self.max_level = max_level                  # maksymalna wysokosc cieczy
         self.area = area                            # powierzchnia zbiornika
         self.target_temp = target_temp              # temp. docelowa
-        self.max_temp_error = max_temp_error        # tolerancja
+#        self.max_temp_error = max_temp_error        # tolerancja
         self.max_heater_power = max_heater_power    # maks. moc grzałki
         self.max_input = max_input                  # przepustowość zaworu wejściowego
         self.max_output = max_output                # przepustowość zaworu wyjściowego
@@ -35,7 +35,7 @@ class Heated_container:
         self.input = [0]                            # ilość cieczy wpływającej
         self.output = [0]                           # ilość cieczy wypływającej
         self.in_valve_status = [1]                  # bieżące otwarcie zaworu wejściowego (0..1)
-        self.out_valve_status = [0]                 # bieżące otwarcie zaworu wyjściowego (0..1)
+        self.out_valve_status = [1]                 # bieżące otwarcie zaworu wyjściowego (0..1)
         self.heater_status = [0]                    # bieżący status grzałki
         self.heater_power = [0]                     # bieżąca moc grzałki
 

@@ -7,9 +7,8 @@ outs = ['BDU', 'DU', 'SU', 'MU', 'Z', 'MD', 'SD', 'DD', 'BDD']
 
 
 class FuzzyController:
-    def __init__(self, max_temp_error, target_temp, max_heater_power):
+    def __init__(self, target_temp, max_heater_power):
 
-        self.max_temp_error = max_temp_error
         self.target_temp = target_temp
         self.max_heater_power = max_heater_power
         self.last_error = 0

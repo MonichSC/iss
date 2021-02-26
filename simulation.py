@@ -31,7 +31,7 @@ def launch_simulation(start_level,
                         area,
                         start_temp,
                         target_temp,
-                        max_temp_error,
+#                        max_temp_error,
                         max_heater_power,
                         input_temp,
                         max_input,
@@ -49,7 +49,7 @@ def launch_simulation(start_level,
                                         area,
                                         start_temp,
                                         target_temp,
-                                        max_temp_error,
+#                                        max_temp_error,
                                         max_heater_power,
                                         input_temp,
                                         max_input,
@@ -77,7 +77,7 @@ def launch_simulation(start_level,
         
         ctr = pidctr.PidController(pid_params, target_temp, max_heater_power)
     elif controller == "fuzzy":
-        ctr = fctr.FuzzyController(max_temp_error, target_temp, max_heater_power)
+        ctr = fctr.FuzzyController(target_temp, max_heater_power)
     else:
         raise Exception("No such controller found")
 

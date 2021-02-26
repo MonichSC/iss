@@ -48,7 +48,7 @@ function p(t)
 
 
 
-var lastParam=13;
+var lastParam=12;
 
 
 // --------------------------------------------------------------------------
@@ -129,16 +129,15 @@ function iss_go()
                             "area": parameters[3],
                             "start_temp": parameters[4],
                             "target_temp": parameters[5],
-                            "max_temp_error": parameters[6],
-                            "max_heater_power": parameters[7],
-                            "input_temp": parameters[8],
-                            "max_input": parameters[9],
-                            "max_output": parameters[10],
+//                            "max_temp_error": parameters[6],
+                            "max_heater_power": parameters[6],
+                            "input_temp": parameters[7],
+                            "max_input": parameters[8],
+                            "max_output": parameters[9],
 //                            "start_in_valve_status": parameters[11],
 //                            "start_out_valve_status": parameters[12],
-//                            "beta": parameters[11],
-                            "sim_time": parameters[11],
-                            "controller": parameters[12],
+                            "sim_time": parameters[10],
+                            "controller": parameters[11],
                             "pid_params": pidPAR}));
 
     console.log("wyslano");
